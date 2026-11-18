@@ -1,45 +1,153 @@
 ---
 import { existsSync } from "node:fs";
 import Card from "./Card.astro";
-import { attributes, locations } from "../lib/attributes";
-import { getCards } from "../lib/cards";
+import { locations, monsterTypes, shieldColors, shieldInfo, typeIcon } from "../lib/monsterTypes";
+import { csvMapping, getCards } from "../lib/cards";
+import { artPools, artworkFor } from "../lib/artworks";
 import { richText } from "../lib/richText";
 import type { Location } from "../../types/cardType";
 
 interface Props {
   // Sem location, mostra todas as cartas
   location?: Location;
+  // Painel de testes: mapeamento escudo → tipo, distribuição e filtro por tipo (página inicial)
+  lab?: boolean;
 }
 
-const { location } = Astro.props;
+const { location, lab = false } = Astro.props;
 const cards = getCards().filter((card) => !location || card.location === location);
+// Escudos citados nos textos ([red] etc.)
+const mentions = (text: string) => [...new Set([...text.matchAll(/\[([a-z]+)\]/g)].map((m) => m[1]))];
+// Dados para o script do painel
+const ygoNames = [...new Set(Object.values(artPools.perType).flat())];
+const labData = {
+  csv: csvMapping,
+  pools: artPools,
+  // Cartas do jogo (o painel redistribui as artes ao trocar o mapeamento)
+  autoArt: cards.map(({ id, shields }) => ({ id, shields })),
+  // Carta de Yu-Gi-Oh → URL da arte
+  artSrc: Object.fromEntries(ygoNames.map((name) => [name, artworkFor(name)?.src ?? ""])),
+  colors: shieldColors,
+  types: Object.fromEntries(
+    Object.entries(monsterTypes).map(([type, { label }]) => [type, { label, icon: typeIcon(type as keyof typeof monsterTypes) }]),
+  ),
+};
 // PNGs só existem depois de `npm run cards -- --public`
 const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
 ---
+
+{
+  lab && (
+    <section class="lab not-content" data-lab={JSON.stringify(labData)}>
+      <details open>
+        <summary>Mapeamento escudo → tipo</summary>
+        <p class="lab-hint">
+          Teste outro mapeamento aqui: cartas, textos e distribuição atualizam na hora. Fica salvo só neste navegador; o
+          oficial é <code>base/csv/vigentTypeColorShieldMapping.csv</code>.
+        </p>
+        <div class="lab-mapping">
+          {Object.entries(shieldColors).map(([shield, color]) => (
+            <label>
+              <span class="lab-dot" style={`--dot: ${color}`} />
+              <span class="lab-shield">{shield}</span>
+              <select data-map={shield}>
+                {Object.entries(monsterTypes).map(([type, { label }]) => (
+                  <option value={type}>{label} ({type})</option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </div>
+        <p class="lab-warning" hidden />
+        <div class="lab-actions">
+          <button type="button" data-action="restore">Voltar ao CSV</button>
+          <button type="button" data-action="copy">Copiar como CSV</button>
+          <span class="lab-copied" hidden>copiado ✓</span>
+        </div>
+      </details>
+
+      <details open>
+        <summary>Distribuição por tipo</summary>
+        <p class="lab-hint">
+          Artes: cartas de 2 tipos recebem o crossover do par; as de 1 tipo recebem as puras do tipo, na ordem de{" "}
+          <code>cardsPerType.csv</code>. Sobrando, saem primeiro as de <code>lessWantedCardsPerType.csv</code>.{" "}
+          <span class="lab-bad">Vermelho</span>: faltou arte ou foi preciso cortar carta fora do lessWanted. Para fixar no{" "}
+          <code>cardList.ts</code>, ajuste o CSV e rode <code>npm run cardlist</code>.
+        </p>
+        <div class="lab-table-wrap">
+          <table class="lab-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Escudo</th>
+                <th title="Cartas com esse tipo (castelo / vilarejo)">Cartas</th>
+                <th>Castelo</th>
+                <th>Vilarejo</th>
+                <th title="Cartas com dois escudos que incluem esse tipo">Duplas</th>
+                <th title="Cartas que citam esse tipo no efeito ou na pontuação">Citado em</th>
+                <th>Custo médio</th>
+                <th title="Cartas de 1 tipo que precisam de arte / artes puras do tipo (sem crossover)">Artes</th>
+                <th title="Artes puras que ficaram de fora (passe o mouse para ver quais)">Cortadas</th>
+              </tr>
+            </thead>
+            <tbody />
+          </table>
+        </div>
+      </details>
+
+      <div class="lab-filter" role="group" aria-label="Filtrar por tipo">
+        <button type="button" class="lab-chip" data-filter="" aria-pressed="true">Todos</button>
+        {Object.entries(monsterTypes).map(([type, { label }]) => (
+          <button type="button" class="lab-chip" data-filter={type} aria-pressed="false">
+            {typeIcon(type as keyof typeof monsterTypes) && <img src={typeIcon(type as keyof typeof monsterTypes)} alt="" />}
+            {label}
+          </button>
+        ))}
+        <label class="lab-mentions">
+          <input type="checkbox" data-mentions /> incluir cartas que só citam o tipo
+        </label>
+      </div>
+      {/* TEMPORÁRIO: artes que ficaram de fora com o mapeamento atual (ver applyOut no script) */}
+      <div class="lab-out" hidden />
+    </section>
+  )
+}
 
 <p class="card-grid-count not-content">{cards.length} cartas</p>
 
 <div class="card-grid not-content">
   {
     cards.map((card) => (
-      <figure>
+      <figure
+        data-shields={card.shields.join(" ")}
+        data-mentions={mentions(`${card.ability} ${card.score}`).join(" ")}
+        data-location={card.location}
+        data-cost={card.cost}
+        data-id={card.id}
+      >
         <button type="button" class="card-open" aria-label={`Ver ${card.name} em tamanho grande`}>
           <Card card={card} />
         </button>
         {/* Informações exibidas ao lado da carta no modal */}
         <template class="card-info">
-          <p class="card-modal-meta">#{String(card.id).padStart(3, "0")} · {locations[card.location].label}</p>
+          <p class="card-modal-meta">
+            #{String(card.id).padStart(3, "0")} · {locations[card.location].label} · {card.originalName}
+          </p>
           <h2 class="card-modal-name">{card.name}</h2>
           <dl class="card-modal-stats">
             <div><dt>Custo</dt><dd>{card.cost}</dd></div>
             <div>
-              <dt>Atributos</dt>
+              <dt>Tipos</dt>
               <dd class="card-modal-attrs">
-                {card.shields.map((shield) => (
-                  <span class="attr" style={`--attr: ${attributes[shield].color}; --attr-text: ${attributes[shield].text}`}>
-                    {attributes[shield].label}
-                  </span>
-                ))}
+                {card.shields.map((shield) => [shield, shieldInfo(shield)] as const).map(([shield, type]) =>
+                  type.icon ? (
+                    <img class="rt-type" src={type.icon} alt={type.label} title={type.label} data-shield={shield} />
+                  ) : (
+                    <span class="attr" style={`--attr: ${type.color}`} data-shield={shield}>
+                      {type.label.toUpperCase()}
+                    </span>
+                  ),
+                )}
               </dd>
             </div>
             <div><dt>Mensageiro</dt><dd>{card.moveMessenger ? "Sim" : "Não"}</dd></div>
@@ -50,7 +158,7 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
             <p set:html={richText(card.ability)} />
           </section>
           <section>
-            <h3>Pontos</h3>
+            <h3>Pontuação</h3>
             <p set:html={richText(card.score)} />
           </section>
           <section class="card-modal-faq">
@@ -85,6 +193,207 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
 </dialog>
 
 <script>
+  import { assignArts, type ArtCard, type ArtPools } from "../lib/artAssignment";
+
+  // Painel de testes (só na página inicial)
+  const lab = document.querySelector<HTMLElement>(".lab");
+  if (lab) {
+    type Info = { label: string; icon?: string };
+    const data = JSON.parse(lab.dataset.lab!) as {
+      csv: Record<string, string>;
+      colors: Record<string, string>;
+      types: Record<string, Info>;
+      pools: ArtPools;
+      autoArt: ArtCard[];
+      artSrc: Record<string, string>;
+    };
+    const KEY = "combo-duel:shield-mapping";
+    const selects = [...lab.querySelectorAll<HTMLSelectElement>("[data-map]")];
+    const figures = [...document.querySelectorAll<HTMLElement>(".card-grid figure")];
+    const chips = [...lab.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const mentionsBox = lab.querySelector<HTMLInputElement>("[data-mentions]")!;
+    const count = document.querySelector<HTMLElement>(".card-grid-count")!;
+    let filter = "";
+    let stats: ReturnType<typeof assignArts>["stats"] = {};
+
+    const load = (): Record<string, string> => {
+      try {
+        return { ...data.csv, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") };
+      } catch {
+        return { ...data.csv };
+      }
+    };
+    const mapping = () => Object.fromEntries(selects.map((s) => [s.dataset.map!, s.value]));
+    const typesOf = (shields: string, map: Record<string, string>) =>
+      shields.split(" ").filter(Boolean).map((sh) => map[sh]);
+
+    // Troca ícone/nome de tudo que tem data-shield (cartas, textos e o conteúdo dos modais)
+    const roots = () => [document, ...[...document.querySelectorAll<HTMLTemplateElement>("template.card-info")].map((t) => t.content)];
+    const applyIcons = (map: Record<string, string>) => {
+      for (const root of roots())
+        for (const el of root.querySelectorAll<HTMLElement>("[data-shield]")) {
+          const info = data.types[map[el.dataset.shield!]];
+          const img = el instanceof HTMLImageElement ? el : el.querySelector("img");
+          el.title = info.label;
+          if (img && info.icon) {
+            img.src = info.icon;
+            img.alt = info.label;
+          } else if (el.classList.contains("attr")) el.textContent = info.label.toUpperCase();
+          else if (!img) el.textContent = info.label;
+        }
+    };
+
+    // Redistribui as artes (e o nome de Yu-Gi-Oh) conforme o mapeamento
+    const applyArts = (map: Record<string, string>) => {
+      const { byId, stats } = assignArts(data.autoArt, map, data.pools);
+      for (const f of figures) {
+        const ygo = byId.get(Number(f.dataset.id)) ?? "";
+        const src = data.artSrc[ygo];
+        const frame = f.querySelector(".card-art-frame")!;
+        let img = frame.querySelector<HTMLImageElement>("img.card-art");
+        if (src) {
+          if (!img) {
+            img = document.createElement("img");
+            img.className = "card-art";
+            frame.replaceChildren(img);
+          }
+          img.src = src;
+          img.alt = img.title = ygo;
+        } else {
+          const div = document.createElement("div");
+          div.className = "card-art-missing";
+          div.textContent = ygo ? `sem arte: ${ygo}` : "sem arte";
+          frame.replaceChildren(div);
+        }
+        const info = f.querySelector<HTMLTemplateElement>("template.card-info")!.content;
+        if (ygo) info.querySelector<HTMLElement>(".card-modal-name")!.textContent = ygo;
+      }
+      return stats;
+    };
+
+    const renderTable = (map: Record<string, string>, stats: ReturnType<typeof applyArts>) => {
+      const rows = Object.entries(data.types).map(([type, info]) => {
+        const has = figures.filter((f) => typesOf(f.dataset.shields!, map).includes(type));
+        const cited = figures.filter((f) => typesOf(f.dataset.mentions!, map).includes(type));
+        const shields = Object.keys(map).filter((sh) => map[sh] === type);
+        const avg = has.length ? has.reduce((n, f) => n + Number(f.dataset.cost), 0) / has.length : 0;
+        return { type, info, has, cited, shields, avg };
+      });
+      const max = Math.max(...rows.map((r) => r.has.length), 1);
+      lab.querySelector(".lab-table tbody")!.innerHTML = rows
+        .map(
+          (r) => `<tr${r.shields.length ? "" : ' class="lab-empty"'}>
+            <td class="lab-type">${r.info.icon ? `<img src="${r.info.icon}" alt="">` : ""}${r.info.label}</td>
+            <td>${r.shields.map((sh) => `<span class="lab-dot" style="--dot: ${data.colors[sh]}" title="${sh}"></span>`).join("") || "—"}</td>
+            <td><span class="lab-bar" style="--w: ${(r.has.length / max) * 100}%"></span><strong>${r.has.length}</strong></td>
+            <td>${r.has.filter((f) => f.dataset.location === "castle").length}</td>
+            <td>${r.has.filter((f) => f.dataset.location === "village").length}</td>
+            <td>${r.has.filter((f) => f.dataset.shields!.includes(" ")).length}</td>
+            <td>${r.cited.length}</td>
+            <td>${r.has.length ? r.avg.toFixed(1) : "—"}</td>
+            ${(() => {
+              const st = stats[r.type];
+              if (!st) return "<td>—</td><td>—</td>";
+              const bad = st.missing > 0 || st.droppedWanted.length > 0;
+              const tip = [
+                st.dropped.length && `Cortadas: ${st.dropped.join(", ")}`,
+                st.droppedWanted.length && `Fora do lessWanted: ${st.droppedWanted.join(", ")}`,
+                st.missing && `${st.missing} carta(s) sem arte`,
+              ]
+                .filter(Boolean)
+                .join("\n");
+              return `<td class="${st.missing ? "lab-bad" : ""}">${st.needed} / ${st.pool}</td>
+                <td class="${bad ? "lab-bad" : ""}" title="${tip}">${st.dropped.length}${st.droppedWanted.length ? ` (${st.droppedWanted.length} fora)` : ""}${st.missing ? ` · faltam ${st.missing}` : ""}</td>`;
+            })()}
+          </tr>`,
+        )
+        .join("");
+    };
+
+    const applyFilter = (map: Record<string, string>) => {
+      let shown = 0;
+      for (const f of figures) {
+        const ok =
+          !filter ||
+          typesOf(f.dataset.shields!, map).includes(filter) ||
+          (mentionsBox.checked && typesOf(f.dataset.mentions!, map).includes(filter));
+        f.hidden = !ok;
+        shown += +ok;
+      }
+      count.textContent = filter ? `${shown} de ${figures.length} cartas` : `${figures.length} cartas`;
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.filter === filter)));
+      applyOut();
+    };
+
+    // TEMPORÁRIO: círculos com as artes que ficaram de fora (do tipo filtrado, ou de todos)
+    const applyOut = () => {
+      const out = lab.querySelector<HTMLElement>(".lab-out")!;
+      const groups = Object.entries(stats).filter(([type, st]) => (!filter || type === filter) && st.dropped.length);
+      out.hidden = !groups.length;
+      out.innerHTML = groups
+        .map(
+          ([type, st]) => `<div class="lab-out-group">
+            <span class="lab-out-label">Fora · ${data.types[type].label}</span>
+            ${st.dropped
+              .map((name) => {
+                const src = data.artSrc[name];
+                const cls = st.droppedWanted.includes(name) ? "lab-out-art lab-out-wanted" : "lab-out-art";
+                const tip = `${name}${st.droppedWanted.includes(name) ? " (fora do lessWanted)" : ""}`;
+                return `<figure class="${cls}" title="${tip}">${src ? `<img src="${src}" alt="">` : ""}<figcaption>${name}</figcaption></figure>`;
+              })
+              .join("")}
+          </div>`,
+        )
+        .join("");
+    };
+
+    const update = () => {
+      const map = mapping();
+      const used = Object.values(map);
+      const missing = Object.keys(data.types).filter((t) => !used.includes(t));
+      const warning = lab.querySelector<HTMLElement>(".lab-warning")!;
+      warning.hidden = !missing.length;
+      warning.textContent = `Tipos sem escudo: ${missing.map((t) => data.types[t].label).join(", ")} (algum tipo está repetido).`;
+      const custom = Object.keys(map).some((sh) => map[sh] !== data.csv[sh]);
+      try {
+        if (custom) localStorage.setItem(KEY, JSON.stringify(map));
+        else localStorage.removeItem(KEY);
+      } catch {}
+      lab.classList.toggle("lab-custom", custom);
+      applyIcons(map);
+      stats = applyArts(map);
+      renderTable(map, stats);
+      applyFilter(map);
+    };
+
+    const initial = load();
+    selects.forEach((s) => (s.value = initial[s.dataset.map!]));
+    selects.forEach((s) => s.addEventListener("change", update));
+    lab.querySelector("[data-action=restore]")!.addEventListener("click", () => {
+      selects.forEach((s) => (s.value = data.csv[s.dataset.map!]));
+      update();
+    });
+    lab.querySelector("[data-action=copy]")!.addEventListener("click", async () => {
+      const text = ["shield,type", ...Object.entries(mapping()).map(([sh, t]) => `${sh},${t}`)].join("\n");
+      try {
+        await navigator.clipboard.writeText(text);
+        const ok = lab.querySelector<HTMLElement>(".lab-copied")!;
+        ok.hidden = false;
+        setTimeout(() => (ok.hidden = true), 1500);
+      } catch {
+        prompt("Copie o CSV:", text);
+      }
+    });
+    chips.forEach((c) =>
+      c.addEventListener("click", () => {
+        filter = filter === c.dataset.filter ? "" : c.dataset.filter!;
+        applyFilter(mapping());
+      }),
+    );
+    mentionsBox.addEventListener("change", () => applyFilter(mapping()));
+    update();
+  }
+
   const modal = document.querySelector<HTMLDialogElement>(".card-modal");
   if (modal) {
     const cardSlot = modal.querySelector<HTMLElement>(".card-modal-slot")!;
@@ -411,6 +720,244 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
       flex-direction: column;
       gap: 24px;
     }
+  }
+
+  /* Painel de testes da página inicial */
+  .lab {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .lab details {
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: var(--sl-color-gray-6);
+  }
+
+  .lab summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .lab-custom details:first-child summary::after {
+    content: " · testando (diferente do CSV)";
+    font-weight: 400;
+    color: var(--sl-color-orange-high, orange);
+  }
+
+  .lab-hint {
+    margin: 8px 0 12px;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .lab-mapping {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+
+  .lab-mapping label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lab-shield {
+    width: 4.5em;
+    font-family: var(--sl-font-mono);
+    font-size: 0.85rem;
+  }
+
+  .lab-mapping select {
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-gray-5);
+  }
+
+  .lab :global(.lab-dot) {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--dot);
+    flex: none;
+    vertical-align: middle;
+  }
+
+  .lab-warning {
+    margin: 8px 0 0;
+    color: var(--sl-color-orange-high, orange);
+    font-size: 0.9rem;
+  }
+
+  .lab-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .lab button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.9rem;
+  }
+
+  .lab-table-wrap {
+    overflow-x: auto;
+    margin-top: 8px;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lab-table th,
+  .lab-table :global(td) {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    white-space: nowrap;
+  }
+
+  .lab-table :global(.lab-type) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .lab-table :global(.lab-type img) {
+    width: 22px;
+    height: 22px;
+  }
+
+  .lab-table :global(.lab-bar) {
+    display: inline-block;
+    width: calc(var(--w) * 0.8);
+    max-width: 80px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 4px;
+    background: var(--sl-color-accent);
+  }
+
+  .lab :global(.lab-bad) {
+    color: #d33;
+    font-weight: 700;
+  }
+
+  .lab-table :global(td[title]:not([title=""])) {
+    cursor: help;
+    text-decoration: underline dotted;
+  }
+
+  .lab-table :global(.lab-empty) {
+    opacity: 0.45;
+  }
+
+  .lab-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .lab .lab-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lab-chip img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .lab .lab-chip[aria-pressed="true"] {
+    background: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-black);
+  }
+
+  /* TEMPORÁRIO: artes de fora */
+  .lab-out {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: var(--sl-color-gray-6);
+  }
+
+  .lab-out[hidden] {
+    display: none;
+  }
+
+  .lab-out :global(.lab-out-group) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .lab-out :global(.lab-out-label) {
+    width: 9em;
+    align-self: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--sl-color-gray-3);
+  }
+
+  .lab-out :global(.lab-out-art) {
+    margin: 0;
+    width: 76px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .lab-out :global(.lab-out-art img) {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--sl-color-gray-5);
+  }
+
+  .lab-out :global(.lab-out-wanted img) {
+    border-color: #d33;
+  }
+
+  .lab-out :global(figcaption) {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .lab-mentions {
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  figure[hidden] {
+    display: none;
   }
 
   /* No desktop, a página do grid usa toda a largura em vez da coluna de 45rem do Starlight */

@@ -1,25 +1,18 @@
-// Cor do escudo no Castle Combo; na skin cada cor é um atributo de Yu-Gi-Oh (ver src/lib/attributes.ts)
+// Cor do escudo no Castle Combo; na skin cada cor é um tipo de monstro (ver src/lib/monsterTypes.ts)
 export type Shield = "red" | "orange" | "blue" | "purple" | "green" | "yellow";
+
+export type MonsterType = "spellcaster" | "dragon" | "warrior" | "beast" | "fiend" | "machine";
 
 export type Location = "castle" | "village";
 
-// Ajuste manual da arte: size é multiplicador (1 = preenche a moldura);
-// left/right/top/bottom em px, como no CSS (left: 20 empurra a imagem 20px para a direita)
-export type ImageEdition = {
-  size: number;
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-};
-
 export type Card = {
   id: number;
-  // Nome exibido na carta (skin)
+  // Carta de Yu-Gi-Oh que esta carta virou (gerado por npm run cardlist); não aparece na carta impressa
   name: string;
   // Nome no Castle Combo
   originalName: string;
   location: Location;
+  // Vira as estrelas da carta
   cost: number;
   shields: [Shield] | [Shield, Shield];
   // Ícone de mover o mensageiro
@@ -29,10 +22,9 @@ export type Card = {
   // Textos originais em inglês — não editar
   originalAbility: string;
   originalScore: string;
-  // Textos da skin; **negrito**, *(nota)* e [ATRIBUTO]
+  // Textos da skin; **negrito**, *(nota)* e [red]/[blue]/... (escudo → selo do tipo)
   ability: string;
   score: string;
-  // Nome do arquivo em assets/art/ sem extensão; padrão: slug do name
+  // Nome do arquivo em assets/artworks/ sem extensão (gerado por npm run cardlist)
   art?: string;
-  imageEdition: ImageEdition;
 };

@@ -1,9 +1,11 @@
 import { cardConfig } from "../../card.config";
 import { cardList } from "../../data/cardList";
 import type { Card } from "../../types/cardType";
+import { artworksByFile } from "./artworks";
+import { shieldTypes } from "./monsterTypes";
 
 export type CardView = Card & {
-  // URL da arte em assets/art/<slug>.png; ausente enquanto não houver arquivo
+  // URL da arte (campo `art`); ausente enquanto não houver arquivo
   artSrc?: string;
   // Nome esperado do arquivo de arte (mostrado no placeholder)
   artFile: string;
@@ -19,12 +21,6 @@ export const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const artImages = new Map<string, string>(
-  Object.entries(
-    import.meta.glob<ImageMetadata>("../../assets/art/*.{png,jpg,jpeg,webp}", { eager: true, import: "default" }),
-  ).map(([path, image]) => [path.split("/").pop()!.replace(/\.[^.]+$/, ""), image.src]),
-);
-
 // Layout desenhado em pixels de impressão (744×1039 para 63×88mm a 300 DPI)
 export const printPx = (mm: number) => Math.round((mm / 25.4) * cardConfig.dpi);
 
@@ -38,8 +34,13 @@ export const cardSizeVars = (bleed: boolean) =>
 export const cardFileName = (card: Pick<Card, "id" | "name">) =>
   `${String(card.id).padStart(3, "0")}-${slug(card.name)}.png`;
 
+// Mapeamento escudo → tipo do CSV (usado pelo painel da página inicial)
+export const csvMapping = Object.fromEntries(Object.entries(shieldTypes).map(([shield, { type }]) => [shield, type]));
+
 export const getCards = (): CardView[] =>
-  cardList.map((card) => {
-    const art = card.art ?? slug(card.name);
-    return { ...card, artSrc: artImages.get(art), artFile: `${art}.png`, fileName: cardFileName(card) };
-  });
+  cardList.map((card) => ({
+    ...card,
+    artSrc: card.art ? artworksByFile.get(card.art)?.src : undefined,
+    artFile: card.art ? `${card.art}.png` : "(sem arte: rode npm run cardlist)",
+    fileName: cardFileName(card),
+  }));

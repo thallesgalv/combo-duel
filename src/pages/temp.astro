@@ -1,0 +1,233 @@
+---
+// TEMPORÁRIO: checklist das artes das cartas de base/csv/cardsPerType.csv, um grid 6×3 por tipo.
+// Marcações ficam no localStorage; cartas de 2 tipos aparecem nos dois grids e marcam juntas.
+import csvText from "../../base/csv/cardsPerType.csv?raw";
+import { artworkFor } from "../lib/artworks";
+import { monsterTypes } from "../lib/monsterTypes";
+
+const norm = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
+
+const parseLine = (line: string) => [...line.matchAll(/"([^"]*)"|([^,]+)/g)].map((m) => m[1] ?? m[2]);
+
+const entries = csvText
+  .trim()
+  .split(/\r?\n/)
+  .slice(1)
+  .map((line) => {
+    const [type, name] = parseLine(line);
+    return { type, name };
+  });
+
+const typesOf = new Map<string, string[]>();
+for (const { type, name } of entries) typesOf.set(name, [...(typesOf.get(name) ?? []), type]);
+
+const label = (type: string) => monsterTypes[type as keyof typeof monsterTypes]?.label ?? type;
+
+const groups = [...new Set(entries.map((e) => e.type))].map((type) => ({
+  type,
+  label: label(type),
+  cards: entries
+    .filter((e) => e.type === type)
+    .map(({ name }) => ({
+      name,
+      id: norm(name),
+      art: artworkFor(name),
+      other: typesOf.get(name)!.filter((t) => t !== type).map(label),
+    })),
+}));
+
+const total = typesOf.size;
+const withArt = [...typesOf.keys()].filter((n) => !!artworkFor(n)).length;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checklist de artes</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 0 auto;
+        padding: 16px;
+        max-width: 1200px;
+        background: #f6f6f4;
+        color: #1a1a1a;
+      }
+      .bar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 8px 0;
+        background: #f6f6f4;
+      }
+      h2 {
+        margin: 28px 0 10px;
+        font-size: 18px;
+      }
+      h2 small {
+        font-weight: 400;
+        color: #777;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-template-rows: repeat(3, auto);
+        gap: 10px;
+      }
+      @media (max-width: 700px) {
+        .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      .tile {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border: 2px solid #e3e3e0;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .tile.checked {
+        border-color: #3a9a4a;
+        background: #eef7ee;
+      }
+      .dim .tile.checked {
+        opacity: 0.35;
+      }
+      .tile input {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+      }
+      .tile img,
+      .none {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        display: block;
+      }
+      .none {
+        background: repeating-linear-gradient(45deg, #eee 0 8px, #ddd 8px 16px);
+      }
+      .name {
+        padding: 6px 8px 2px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+      .other {
+        padding: 0 8px 6px;
+        font-size: 11px;
+        color: #8a5a00;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Checklist de artes</h1>
+    <div class="bar">
+      <span><strong id="count">0</strong> / {total} marcadas · {withArt} com arte</span>
+      <label><input type="checkbox" id="dim" /> apagar marcadas</label>
+      <button id="reset" type="button">Desmarcar todas</button>
+      <button id="export" type="button">Copiar marcadas</button>
+      <span id="copied" hidden>copiado ✓</span>
+    </div>
+
+    {
+      groups.map((g) => (
+        <section>
+          <h2>
+            {g.label} <small>({g.type} · {g.cards.length})</small>
+          </h2>
+          <div class="grid">
+            {g.cards.map((c) => (
+              <label class="tile" data-id={c.id} data-name={c.name} data-art={c.art ? "1" : ""} title={c.art?.file ?? "sem arte"}>
+                <input type="checkbox" />
+                {c.art ? <img src={c.art.src} alt="" loading="lazy" /> : <div class="none" />}
+                <span class="name">{c.name}</span>
+                {c.other.length > 0 && <span class="other">+ {c.other.join(", ")}</span>}
+              </label>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <script>
+      const KEY = "combo-duel:art-checklist-v2";
+      const tiles = [...document.querySelectorAll<HTMLLabelElement>(".tile")];
+      const box = (el: HTMLElement) => el.querySelector<HTMLInputElement>("input")!;
+      const dim = document.querySelector<HTMLInputElement>("#dim")!;
+
+      const load = (): Record<string, boolean> | null => {
+        try {
+          return JSON.parse(localStorage.getItem(KEY) ?? "null");
+        } catch {
+          return null;
+        }
+      };
+      const save = () => {
+        const state = Object.fromEntries(tiles.map((t) => [t.dataset.id, box(t).checked]));
+        try {
+          localStorage.setItem(KEY, JSON.stringify(state));
+        } catch {}
+      };
+      const render = () => {
+        const on = new Set<string>();
+        for (const t of tiles) {
+          t.classList.toggle("checked", box(t).checked);
+          if (box(t).checked) on.add(t.dataset.id!);
+        }
+        document.querySelector("#count")!.textContent = String(on.size);
+        document.body.classList.toggle("dim", dim.checked);
+      };
+      const set = (id: string, value: boolean) =>
+        tiles.filter((t) => t.dataset.id === id).forEach((t) => (box(t).checked = value));
+      const defaults = () => tiles.forEach((t) => (box(t).checked = false));
+
+      const state = load();
+      if (state) tiles.forEach((t) => (box(t).checked = !!state[t.dataset.id!]));
+      else defaults();
+
+      document.addEventListener("change", (e) => {
+        const tile = (e.target as HTMLElement).closest<HTMLElement>(".tile");
+        if (tile) set(tile.dataset.id!, box(tile).checked);
+        save();
+        render();
+      });
+      // Texto para colar no chat: marcadas e não marcadas, sem repetir cartas de 2 tipos
+      document.querySelector("#export")!.addEventListener("click", async () => {
+        const names = (checked: boolean) => [
+          ...new Set(tiles.filter((t) => box(t).checked === checked).map((t) => t.dataset.name!)),
+        ];
+        const yes = names(true);
+        const no = names(false);
+        const text = [`Marcadas (${yes.length}):`, ...yes.map((n) => `- ${n}`), "", `Não marcadas (${no.length}):`, ...no.map((n) => `- ${n}`)].join("\n");
+        try {
+          await navigator.clipboard.writeText(text);
+          const ok = document.querySelector<HTMLElement>("#copied")!;
+          ok.hidden = false;
+          setTimeout(() => (ok.hidden = true), 1500);
+        } catch {
+          prompt("Copie o texto:", text);
+        }
+      });
+      document.querySelector("#reset")!.addEventListener("click", () => (defaults(), save(), render()));
+      render();
+    </script>
+  </body>
+</html>

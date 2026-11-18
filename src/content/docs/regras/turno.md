@@ -26,7 +26,7 @@ Em vez de pagar, você pode pegar **qualquer** carta revelada e colocá-la **vir
 
 O efeito resolve logo após a carta entrar no reino.
 
-- A carta conta a si mesma (por exemplo, “1 ouro por [FOGO]” conta o FOGO da própria carta), exceto descontos.
+- A carta conta a si mesma (por exemplo, “1 ouro por Guerreiro” conta o Guerreiro da própria carta), exceto descontos.
 - Ganhos vêm da reserva e contam o **seu** reino, salvo indicação.
 - **Oponente** e **vizinho**: em duelo é sempre o outro jogador.
 - Carta virada para baixo não tem efeito.

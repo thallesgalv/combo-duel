@@ -1,5 +1,6 @@
 ---
-import { attributes, locations } from "../lib/attributes";
+import star from "../../assets/frame/star.png";
+import { shieldInfo } from "../lib/monsterTypes";
 import { cardSizeVars, type CardView } from "../lib/cards";
 import { richText } from "../lib/richText";
 import "../styles/card.css";
@@ -9,87 +10,95 @@ interface Props {
   bleed?: boolean;
 }
 
+// Layout inspirado nas cartas do anime (template do AYGOCM em assets/frame/):
+// arte grande, estrelas = custo, ícones de tipo (DG) empilhados no canto superior direito,
+// e no painel de monstro normal as caixas de efeito e pontuação empilhadas.
 const { card, bleed = false } = Astro.props;
-const { size, left, right, top, bottom } = card.imageEdition;
-const artVars = [`--art-x: ${left - right}px`, `--art-y: ${top - bottom}px`, `--art-scale: ${size}`].join("; ");
-const location = locations[card.location];
-// Capacidade da bolsa, lida do texto de pontos ("máx. 4")
-const purseMax = card.score.match(/máx\. (\d+)/)?.[1];
+const types = card.shields.map(shieldInfo);
+// Mensageiro: Castelo ▲ dourado, Vilarejo ▼ preto
+const castle = card.location === "castle";
+// Caixas de texto; com **OU** ou **E** a caixa se divide em duas partes separadas por uma
+// diagonal, com a conjunção num selo no meio
+const capitalize = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+const boxes = [
+  { label: "Efeito", text: card.ability, cls: "card-ability" },
+  { label: "Pontuação", text: card.score, cls: "card-score" },
+].map((box) => {
+  const split = box.text.match(/^(.*?)\s*\*\*(OU|E)\*\*\s*(.*)$/);
+  return { ...box, split: split && { left: capitalize(split[1]), joiner: split[2], right: capitalize(split[3]) } };
+});
 ---
 
-<article class:list={["card", `card-${card.location}`]} style={cardSizeVars(bleed)} data-card-id={card.id}>
+<article class="card" style={cardSizeVars(bleed)} data-card-id={card.id}>
   <div class="card-face">
-    <header class="card-header">
-      <div class="card-cost" title="Custo">{card.cost}</div>
-      <h2 class:list={["card-name", { "card-name-long": card.name.length > 14 }]}>{card.name}</h2>
-      <div class="card-shields">
-        {
-          card.shields.map((shield) => {
-            const attr = attributes[shield];
-            return (
-              <span class="card-shield" style={`--attr: ${attr.color}; --attr-text: ${attr.text}`}>
-                {attr.label}
-              </span>
-            );
-          })
-        }
-      </div>
-    </header>
-
     <div class="card-art-frame">
       {
         card.artSrc ? (
-          <img class="card-art" src={card.artSrc} alt={card.name} style={artVars} />
+          <img class="card-art" src={card.artSrc} alt={card.name} />
         ) : (
           <div class="card-art-missing">
             sem arte
             <br />
-            assets/art/{card.artFile}
+            assets/artworks/{card.artFile}
           </div>
         )
       }
-      {card.purse && <div class="card-purse" title="Bolsa">bolsa{purseMax && <b>{purseMax}</b>}</div>}
     </div>
 
-    <div class="card-strip">
-      <span class="card-location">
-        <svg class="card-location-icon" viewBox="0 0 24 24" aria-hidden="true">
-          {
-            card.location === "castle" ? (
-              <path d="M3 21V9h3V5h3v3h2V5h2v3h2V5h3v4h3v12h-7v-5a2 2 0 0 0-4 0v5z" />
-            ) : (
-              <path d="M2 12 12 3l10 9h-3v9h-5v-6h-4v6H5v-9z" />
-            )
-          }
-        </svg>
-        {location.label}
-      </span>
+    <div class="card-types">
       {
-        card.moveMessenger && (
-          <span class="card-messenger" title="Mova o mensageiro">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 8h12l-3-3 1.4-1.4L20 9l-5.6 5.4L13 13l3-3H4zm16 8H8l3 3-1.4 1.4L4 15l5.6-5.4L11 11l-3 3h12z" />
-            </svg>
-            mensageiro
+        types.map((type, i) => (
+          <span class="card-type" style={`--type: ${type.color}`} title={type.label} data-shield={card.shields[i]}>
+            {type.icon ? <img src={type.icon} alt={type.label} /> : type.label}
           </span>
-        )
+        ))
       }
     </div>
 
-    <div class="card-textbox">
-      <div class="card-ability">
-        <span class="card-label">Efeito</span>
-        <p set:html={richText(card.ability)} />
-      </div>
-      <div class="card-score">
-        <span class="card-label">Pontos</span>
-        <p set:html={richText(card.score)} />
-      </div>
-    </div>
+    {
+      card.moveMessenger && (
+        <svg
+          class:list={["card-messenger", castle ? "card-messenger-up" : "card-messenger-down"]}
+          viewBox="0 0 100 100"
+          role="img"
+          aria-label="Mova o mensageiro"
+        >
+          <title>Mova o mensageiro</title>
+          <polygon points={castle ? "50,8 94,88 6,88" : "6,12 94,12 50,92"} />
+        </svg>
+      )
+    }
 
-    <footer class="card-footer">
-      <span>#{String(card.id).padStart(3, "0")}</span>
-      <span>{card.originalName}</span>
-    </footer>
+    {
+      card.cost > 0 && (
+        <div class="card-stars" title={`Custo ${card.cost}`}>
+          {Array.from({ length: card.cost }, () => (
+            <img src={star.src} alt="" />
+          ))}
+        </div>
+      )
+    }
+
+    <div class="card-panel">
+      {
+        boxes.map((box) => (
+          <div class:list={["card-box", box.cls, { "card-box-or": box.split }]}>
+            <span class="card-label">{box.label}</span>
+            {box.split ? (
+              <>
+                <p set:html={richText(box.split.left)} />
+                <span class="card-or-clip" aria-hidden="true">
+                  <span class="card-or-line" />
+                </span>
+                <span class="card-or">{box.split.joiner}</span>
+                <p set:html={richText(box.split.right)} />
+              </>
+            ) : (
+              <p set:html={richText(box.text)} />
+            )}
+          </div>
+        ))
+      }
+    </div>
   </div>
 </article>

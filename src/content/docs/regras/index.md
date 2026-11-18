@@ -17,23 +17,27 @@ Combo Duel é uma skin Yu-Gi-Oh de **Castle Combo**. Cada jogador recruta **9 ca
 
 | Elemento | Onde fica | Para que serve |
 |---|---|---|
-| Custo | moeda no canto superior esquerdo | ouro pago para comprar a carta |
-| Atributos | círculos no canto superior direito | os “escudos” do jogo original (1 ou 2 por carta) |
-| Castelo / Vilarejo | faixa abaixo da arte | baralho de origem; também é o “ícone de Castelo/Vilarejo” citado em alguns textos |
-| Mensageiro | selo na faixa abaixo da arte | ao comprar a carta, o mensageiro vai para o lado dela |
+| Custo | estrelas na base da arte | ouro pago para comprar a carta (sem estrelas = custo 0) |
+| Tipos | círculos no canto superior direito | os “escudos” do jogo original (1 ou 2 por carta) |
+| Castelo / Vilarejo | cor do painel (laranja / amarelo) e ícone ao lado do nome | baralho de origem; também é o “ícone de Castelo/Vilarejo” citado em alguns textos |
+| Mensageiro | selo no canto superior esquerdo da arte | ao comprar a carta, o mensageiro vai para o lado dela |
 | Bolsa | círculo tracejado na arte | guarda ouro no fim do jogo |
 | Efeito | caixa de texto de cima | resolve uma vez, logo após a compra |
 | Pontos | caixa de texto de baixo | contado no fim do jogo |
 
-## Atributos
+## Tipos
 
-Os seis escudos de Castle Combo viram os atributos de Yu-Gi-Oh:
+Os seis escudos de Castle Combo viram tipos de monstro de Yu-Gi-Oh: **Mago**, **Dragão**, **Guerreiro**, **Besta**, **Demônio** e **Máquina**.
 
-| Castle Combo | Atributo |
+:::caution[Em testes]
+A associação ainda está sendo testada. Ela vem de `base/csv/vigentTypeColorShieldMapping.csv`, e na página inicial dá para testar outra.
+:::
+
+| Castle Combo | Tipo |
 |---|---|
-| Militar (vermelho) | **FOGO** |
-| Artesanato (laranja) | **TERRA** |
-| Nobreza (azul) | **ÁGUA** |
-| Fé (roxo) | **TREVAS** |
-| Erudição (verde) | **VENTO** |
-| Campesinato (amarelo) | **LUZ** |
+| Militar (vermelho) | **Máquina** |
+| Artesanato (laranja) | **Besta** |
+| Nobreza (azul) | **Mago** |
+| Fé (roxo) | **Dragão** |
+| Erudição (verde) | **Guerreiro** |
+| Campesinato (amarelo) | **Demônio** |

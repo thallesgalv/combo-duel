@@ -20,7 +20,7 @@ sidebar:
 
 ## Cartas viradas para baixo
 
-- Não têm custo, efeito, atributo nem pontos (valem 0).
+- Não têm custo, efeito, tipo nem pontos (valem 0).
 - Ao colocá-la, ganhe **6 de ouro e 2 chaves**.
 - Não movem o mensageiro.
 

@@ -23,32 +23,31 @@
   font-style: italic;
 }
 @font-face {
+  font-family: "Matrix Small Caps";
+  src: url("../assets/fonts/matrix-regular-small-caps.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
   font-family: "Arial Black";
   src: url("../assets/fonts/ariblk.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
 }
 
-/* Medidas em pixels de impressão: a carta tem 744×1039 (63×88mm a 300 DPI) */
+/* Medidas em pixels de impressão: a carta tem 744×1039 (63×88mm a 300 DPI).
+   Texturas recortadas do template do AYGOCM (400×583) em assets/frame/, ampliadas ~1.86×. */
 .card {
-  --frame-a: #3b2c6b;
-  --frame-b: #20173f;
-  --frame-edge: #c9a24a;
-  --parchment: #f3e7c9;
-  --ink: #241a10;
+  --art-h: 676px;
+  --ink: #2a1a06;
   box-sizing: content-box;
   width: var(--card-w);
   height: var(--card-h);
   padding: var(--card-bleed);
-  background: var(--frame-b);
+  background: #858585;
   color: var(--ink);
   font-family: "Arial", sans-serif;
   line-height: 1.2;
-}
-
-.card-village {
-  --frame-a: #a2642a;
-  --frame-b: #5a3313;
 }
 
 .card *,
@@ -62,11 +61,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: 14px solid var(--frame-edge);
-  border-radius: 28px;
-  background:
-    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.04) 0 6px, transparent 6px 14px),
-    linear-gradient(160deg, var(--frame-a), var(--frame-b));
+  background: #858585;
 }
 
 .card-face > * {
@@ -74,94 +69,49 @@
   margin: 0;
 }
 
-/* Cabeçalho: custo, nome e atributos */
-.card-header {
-  top: 26px;
-  left: 26px;
-  right: 26px;
-  height: 104px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 14px 0 6px;
-  border: 4px solid var(--frame-edge);
-  border-radius: 14px;
-  background: linear-gradient(180deg, #fff6df, var(--parchment));
-  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.12);
-}
-
-.card-cost {
-  flex: none;
-  width: 88px;
-  height: 88px;
-  display: grid;
-  place-items: center;
-  border: 5px solid #7a5410;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff1a8, #f2c230 45%, #b98410);
-  color: #3a2400;
-  font-family: "Arial Black", sans-serif;
-  font-size: 54px;
-  text-shadow: 0 2px 0 rgb(255 255 255 / 0.5);
-}
-
-.card-name {
-  flex: 1;
-  min-width: 0;
-  font-family: "Arial Black", sans-serif;
-  font-size: 44px;
-  line-height: 1;
-  color: var(--ink);
-  letter-spacing: -0.5px;
-}
-
-.card-name-long {
-  font-size: 34px;
-}
-
-.card-shields {
-  flex: none;
-  display: flex;
-  gap: 8px;
-}
-
-.card-shield {
-  width: 76px;
-  height: 76px;
-  display: grid;
-  place-items: center;
-  border: 4px solid rgb(0 0 0 / 0.35);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgb(255 255 255 / 0.45), transparent 55%), var(--attr);
-  color: var(--attr-text);
-  font-family: "Arial Black", sans-serif;
-  font-size: 13px;
-  letter-spacing: 0;
-}
-
-/* Arte */
+/* Arte: moldura cinza do template na borda; a arte ocupa a janela (padding box) */
 .card-art-frame {
-  top: 148px;
-  left: 50px;
-  right: 50px;
-  height: 470px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--art-h);
+  border-style: solid;
+  border-width: 22px 22px 26px 19px;
+  border-image: url("../../assets/frame/art-frame.png") 12 12 14 10 fill / 22px 22px 26px 19px stretch;
+  background: #111;
+  background-clip: padding-box;
   overflow: hidden;
-  border: 6px solid var(--frame-edge);
-  background: #1a1a1a;
 }
 
-.card-art {
+.card-art,
+.card-art-missing {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+.card-art {
   object-fit: cover;
-  transform: translate(var(--art-x), var(--art-y)) scale(var(--art-scale));
+}
+
+/* Fade escuro nas laterais para destacar os ícones de tipo e o mensageiro */
+.card-art-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0.7),
+    rgb(0 0 0 / 0) 24%,
+    rgb(0 0 0 / 0) 58%,
+    rgb(0 0 0 / 0.6) 80%,
+    rgb(0 0 0 / 0.9)
+  );
 }
 
 .card-art-missing {
-  position: absolute;
-  inset: 0;
   display: grid;
   place-content: center;
   text-align: center;
@@ -170,126 +120,294 @@
   background: repeating-linear-gradient(45deg, #2a2a2a 0 20px, #222 20px 40px);
 }
 
-.card-purse {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  width: 110px;
-  height: 110px;
-  display: grid;
-  place-items: center;
-  border: 5px dashed #f2c230;
-  border-radius: 50%;
-  background: rgb(0 0 0 / 0.55);
-  color: #f2c230;
-  font-family: "Arial Black", sans-serif;
-  font-size: 18px;
-  line-height: 1;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.card-purse b {
-  display: block;
-  font-size: 40px;
-}
-
-/* Faixa: local e mensageiro */
-.card-strip {
-  top: 628px;
-  left: 50px;
-  right: 50px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #fff;
-  font-family: "Arial Black", sans-serif;
-  font-size: 26px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.card-location,
-.card-messenger {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.card-strip svg {
-  width: 40px;
-  height: 40px;
-  fill: var(--frame-edge);
-}
-
-.card-messenger {
-  padding: 4px 16px 4px 10px;
-  border-radius: 999px;
-  background: var(--frame-edge);
-  color: var(--frame-b);
-  font-size: 20px;
-  letter-spacing: 1px;
-}
-
-.card-messenger svg {
-  width: 34px;
-  height: 34px;
-  fill: var(--frame-b);
-}
-
-/* Caixa de texto: efeito e pontuação */
-.card-textbox {
-  top: 690px;
-  left: 26px;
-  right: 26px;
-  bottom: 62px;
+/* Tipos (escudos): ícones circulares do Duel Generation empilhados no canto superior direito */
+.card-types {
+  top: 40px;
+  right: 40px;
   display: flex;
   flex-direction: column;
-  border: 4px solid var(--frame-edge);
-  border-radius: 14px;
-  background: var(--parchment);
-  overflow: hidden;
+  gap: 14px;
 }
 
-.card-ability,
-.card-score {
+.card-type {
+  width: 116px;
+  height: 116px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 5px solid #e9c25a;
+  border-radius: 50%;
+  background: var(--type);
+  box-shadow:
+    0 0 0 3px #5a3d0a,
+    0 6px 14px rgb(0 0 0 / 0.55);
+  color: #fff;
+  font-family: "Arial Black", sans-serif;
+  font-size: 17px;
+  text-shadow: 0 2px 2px rgb(0 0 0 / 0.6);
+}
+
+.card-type img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mensageiro: triângulo no canto inferior esquerdo (Castelo ▲ dourado, Vilarejo ▼ preto) */
+/* Base alinhada com a das estrelas, no canto inferior esquerdo da arte */
+.card-messenger {
+  top: calc(var(--art-h) - 26px - 12px - 72px);
+  left: 40px;
+  width: 72px;
+  height: 72px;
+  overflow: visible;
+  filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.55));
+}
+
+.card-messenger polygon {
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+.card-messenger-up polygon {
+  fill: #e9c25a;
+  stroke: #5a3d0a;
+}
+
+.card-messenger-down polygon {
+  fill: #111;
+  stroke: #e9c25a;
+}
+
+/* Estrelas (custo): na base da arte, como a faixa de nível das cartas do anime */
+.card-stars {
+  top: calc(var(--art-h) - 26px - 76px);
+  left: 0;
+  right: 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.card-stars img {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 3px 4px rgb(0 0 0 / 0.6));
+}
+
+/* Painel: textura amarela de monstro normal */
+.card-panel {
+  top: var(--art-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 18px 12px;
+  border-style: solid;
+  border-width: 15px;
+  border-image: url("../../assets/frame/panel-village.png") 8 fill / 15px stretch;
+}
+
+/* Caixas de efeito e pontos, empilhadas (moldura das caixas de ATK/DEF do template) */
+.card-box {
   position: relative;
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 30px 26px 14px;
+  justify-content: center;
+  min-height: 0;
+  padding: 9px 20px 0;
+  border-style: solid;
+  border-width: 16px;
+  border-image: url("../../assets/frame/box.png") 9 fill / 16px stretch;
 }
 
-.card-score {
-  border-top: 4px solid var(--frame-edge);
-  background: #e8d6ab;
-}
-
+/* Rótulo centralizado sobre a borda de cima da caixa */
 .card-label {
   position: absolute;
-  top: 6px;
-  left: 18px;
-  font-family: "Arial Black", sans-serif;
-  font-size: 17px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #8a6a2a;
+  z-index: 2;
+  top: -8px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.card-textbox p {
+.card-box p {
+  /* Ícones com tamanho próprio: a Matrix pede fonte grande, os ícones não */
+  --rt-icon: 54px;
   margin: 0;
-  font-size: 33px;
-  line-height: 1.25;
+  font-family: "Matrix Small Caps", serif;
+  font-size: 46px;
+  line-height: 0.92;
+  text-align: center;
 }
 
-.card-textbox strong {
+.card-score p {
+  --rt-icon: 64px;
+}
+
+/* Caixa com OU: duas opções lado a lado, separadas por uma linha diagonal com o selo "OU" */
+.card-box-or {
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Diagonal com a mesma moldura da caixa: a faixa da borda esquerda do box.png vira uma barra
+   girada. O recorte na borda interna da caixa faz a barra "nascer" da moldura sem vazar. */
+.card-or-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.card-or-line {
+  --or-angle: 20deg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: calc(100% / cos(var(--or-angle)) + 40px);
+  transform: translate(-50%, -50%) rotate(var(--or-angle));
+  border-style: solid;
+  border-width: 0 0 0 16px;
+  border-image: url("../../assets/frame/box.png") 9 / 0 0 0 16px stretch;
+}
+
+.card-box-or p {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 0 24px;
+}
+
+.card-or,
+.card-label {
+  font-family: "Matrix Small Caps", serif;
+  font-size: 26px;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #000;
+  padding: 3px 18px 2px;
+  border: 3px solid #9a4a10;
+  background: linear-gradient(#fdf1c4, #efd27e);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
+}
+
+.card-or {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+.card-box strong {
   font-weight: 700;
 }
 
-.card-textbox em {
+.card-box em {
   font-size: 0.85em;
 }
+
+/* Ícones no texto (ver lib/richText.ts) */
+.rt-icon,
+.rt-type,
+.rt-card {
+  display: inline-block;
+  height: var(--rt-icon, 1.4em);
+  width: auto;
+  /* margem vertical negativa que compensa o tamanho: o ícone ocupa 1em na linha,
+     então pode crescer sem aumentar a altura da linha */
+  margin: calc((1em - var(--rt-icon, 1.4em)) / 2) 0.05em;
+  vertical-align: -0.2em;
+}
+
+/* O olho do milênio fica colado no número ("1🔑"): um respiro à esquerda */
+.rt-key {
+  margin-left: 0.22em;
+}
+
+.rt-type {
+  width: var(--rt-icon, 1.4em);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.06em #5a3d0a;
+}
+
+.rt-card {
+  height: var(--rt-icon, 1.4em);
+}
+
+/* Ícone de tipo cercado por setas: "na mesma linha" (◀ ▶), "coluna" (▲ ▼) ou ambos */
+.rt-around {
+  position: relative;
+  display: inline-block;
+  margin: calc((1em - var(--rt-icon, 1.4em)) / 2) 0.05em;
+  line-height: 1;
+  vertical-align: -0.2em;
+}
+
+.rt-around .rt-type {
+  display: block;
+  margin: 0;
+}
+
+.rt-row {
+  padding: 0 0.66em;
+}
+
+.rt-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0.22em solid transparent;
+}
+
+.rt-arrow-l {
+  left: 0;
+  top: 50%;
+  margin-top: -0.22em;
+  border-left: 0;
+  border-right: 0.34em solid var(--ink, #2a1a06);
+}
+
+.rt-arrow-r {
+  right: 0;
+  top: 50%;
+  margin-top: -0.22em;
+  border-right: 0;
+  border-left: 0.34em solid var(--ink, #2a1a06);
+}
+
+.rt-arrow-u {
+  top: -0.58em;
+  left: 50%;
+  margin-left: -0.22em;
+  border-top: 0;
+  border-bottom: 0.34em solid var(--ink, #2a1a06);
+}
+
+.rt-arrow-d {
+  bottom: -0.58em;
+  left: 50%;
+  margin-left: -0.22em;
+  border-bottom: 0;
+  border-top: 0.34em solid var(--ink, #2a1a06);
+}
+
 
 .card .attr,
 .card-modal .attr,
@@ -298,22 +416,10 @@
   padding: 0.05em 0.4em;
   border-radius: 0.5em;
   background: var(--attr);
-  color: var(--attr-text);
+  color: #fff;
   font-family: "Arial Black", sans-serif;
   font-size: 0.78em;
   font-style: normal;
   letter-spacing: 0.03em;
   vertical-align: 0.08em;
-}
-
-.card-footer {
-  left: 40px;
-  right: 40px;
-  bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  color: rgb(255 255 255 / 0.7);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
 }

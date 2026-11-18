@@ -1,0 +1,25 @@
+---
+title: Combo Duel
+description: Skin Yu-Gi-Oh de Castle Combo — regras e cartas para impressão.
+template: splash
+hero:
+  tagline: Recrute 9 monstros, monte seu reino 3×3 e encadeie combos. Uma skin Yu-Gi-Oh de Castle Combo.
+  actions:
+    - text: Como jogar
+      link: regras/
+      icon: right-arrow
+    - text: Ver as cartas
+      link: cartas/castelo/
+      variant: minimal
+---
+
+import { CardGrid as Grid, Card } from "@astrojs/starlight/components";
+
+<Grid>
+  <Card title="Regras" icon="open-book">
+    Preparação, turno, posicionamento e pontuação em [Regras](regras/).
+  </Card>
+  <Card title="Cartas" icon="seti:image">
+    78 cartas: 39 de [Castelo](cartas/castelo/) e 39 de [Vilarejo](cartas/vilarejo/).
+  </Card>
+</Grid>

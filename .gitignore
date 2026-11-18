@@ -1,0 +1,6 @@
+node_modules
+dist
+.astro
+output
+public/cards
+.claude/settings.local.json

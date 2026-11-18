@@ -1,0 +1,79 @@
+id,name,cost,shield1,shield2,moveMessenger,location,ability,score
+1,Lookout,6,red,,true,castle,1 key per red shield,4 points per different shield type in the same column
+2,Knight,5,red,,true,castle,1 gold per Castle card,3 points per blue shield in the same row or column
+3,General,7,red,,true,castle,1 key per different shield,6 points per set of 3 matching shields
+4,Chaplain,5,red,red,false,castle,Discount of 1 on Village cards,8 points if located in the right column is full
+5,Officer,5,red,,true,castle,1 gold per blue and red shield,4 points per blue+red shield pair
+6,Mercenary,6,red,yellow,true,village,1 gold per different shield type,7 points per set of purple+red+yellow shields
+7,Master-at-arms,2,red,red,true,village,1 gold per red shield,2 points per gold up to a maximum of 4
+8,Blacksmith,5,red,orange,true,village,"1 gold per blue shield of one neighbor, or gain 2 keys",2 points per double-shield card
+9,Squire,0,red,,true,village,Discount of 1 on all cards,2 points per orange shield in the same row or column
+10,Bombardier,2,red,,true,village,"1 gold per orange shield of one neighbor, OR gain 2 keys",3 points per red shield in the same column
+11,Militiaman,2,red,,false,village,1 gold per yellow shield of one neighbor OR gain 2 keys,3 points per red shield in the same row
+12,Barbarian,2,red,,false,village,1 gold per green shield of one neighbor OR gain 2 keys,10 points if green shields are missing
+13,Executioner,0,red,,false,village,Discard one Castle card from the board and gain the cost in gold,1 point per Castle card
+14,Guildmaster,5,orange,orange,false,castle,Discard one Village card and receive its cost in gold,5 points if located in the bottom row
+15,Glassblower,5,orange,,false,castle,1 gold per purple and orange shield,4 points per purple+orange shield pair
+16,Pawnbroker,4,orange,,false,castle,1 gold per card with a cost of 4 gold,3 points per card with a cost of 4 gold
+17,Banker,7,orange,,false,castle,2 gold on each purse OR gain 3 keys,1 point per gold stored on purses
+18,Potter,2,orange,orange,false,village,2 gold on each purse,2 points per gold up to a maximum of 4 gold
+19,Carpenter,0,orange,,false,village,1 gold per missing shield type,8 points if you have at least 1 face-down card
+20,Locksmith,4,orange,yellow,false,village,1 key per orange shield,1 point per key
+21,Stonemason,3,orange,,false,village,Discount of 1 on village cards,3 points per orange shield in the same column
+22,Armorer,3,orange,,true,village,Discount of 1 on all cards,3 points per red shield in the same row or column
+23,Spice Merchant,0,orange,,true,village,2 gold per orange shield,5 points if located in the middle row
+24,Clockmaker,3,orange,,false,village,1 gold per orange shield,3 points per orange shield in the same row
+25,Innkeeper,0,orange,,true,village,Gain 2 gold on each purse AND opponents gain 2 gold,2 points per gold on this purse to a maximum of 6 gold
+26,Chatelaine,2,blue,orange,true,castle,Discount of 1 on Castle cards,2 points per different shield type in the same row
+27,Duchess,5,blue,blue,true,castle,Gain 2 keys,8 points if located in the top row
+28,His Majesty,6,blue,purple,false,castle,Opponents gain 1 gold,4 points per blue shield in the same column
+29,Queen Mother,3,blue,blue,true,castle,2 gold added to each purse,2 points per gold up to a maximum of 5 gold
+30,Jester,3,blue,,false,castle,2 gold per blue shield,2 points per blue shield in the same row or column
+31,Chancellor,6,blue,green,true,castle,1 key per green shield,2 points per castle banner icon
+32,Princess,3,blue,,false,castle,Discount of 1 on Castle cards,3 points per blue shield in the same row
+33,Prince,6,blue,,true,castle,1 gold per blue shield,4 points per blue shield in the same row
+34,Her Majesty the Queen,7,blue,,true,castle,1 key per blue shield,10 points per set of blue+green+orange shields
+35,Baron,3,blue,,true,castle,Discount of 1 on all cards,10 points if no yellow shields
+36,Steward,0,blue,,true,castle,Gain gold on two purses until they are full,"2 points per gold in the purse, up to a maximum of 3 gold"
+37,Royal Guard,4,blue,red,false,castle,All players gain 1 key,3 points per blue shield in the same column
+38,Stable Boy,4,blue,yellow,true,village,1 key per blue shield,3 points per yellow shield in the same column
+39,Nun,3,purple,,false,castle,1 gold per Castle,3 points per purple shield in the same column
+40,Devout,4,purple,,true,castle,1 gold per empty space,10 points if orange shields are missing
+41,His Holiness,7,purple,,true,castle,Gain 3 keys or opponents gain 1 key,6 points per missing shield type
+42,Cardinal,4,purple,,true,castle,1 key per Castle,3 points per purple shield in the same row
+43,Templar,5,purple,red,false,castle,1 gold per purple shield of one neighbor OR 1 key per red shield,1 point per key
+44,Pilgrim,6,purple,,false,castle,Discount of 1 on Village cards,4 points per brown shield in the same row
+45,Chaplain,5,purple,,false,castle,1 gold per single-shield card,2 points per Village card
+46,Gravedigger,4,purple,green,true,castle,Discard one Village card and receive its value in gold,"2 points per gold stored in this purse, up to a maximum of 8 gold"
+47,Scribe,4,purple,,false,castle,1 gold per purple shield,3 points per green shield in the same row or column
+48,Mother Superior,5,purple,purple,true,castle,4 keys,5 points if located in the top row
+49,Monk,4,purple,yellow,false,village,1 key per purple shield,2 points per yellow shield in the same row
+50,Sculptor,3,purple,orange,false,village,1 key per purple shield,2 points per gold in this purse up to a maximum of 7 gold
+51,Miraculously cured!,2,purple,purple,false,village,1 key per purse,2 points per gold in this purse to a maximum of 4 gold
+52,Vicar,0,purple,,false,village,1 gold per Village card,2 points per gold on this purse to a maximum of 5 gold
+53,Astronomer,5,green,green,true,castle,Discount of 1 on Castle cards,8 points if located in the left column
+54,Alchemist,6,green,,true,castle,Discount of 1 on all cards,4 points per discount (-1) card
+55,Professor,4,green,,false,castle,1 gold per different shield,3 points per green shield in the same row
+56,Apothecary,3,green,,false,castle,Discount of 1 on Castle cards,3 points per green shield in the same column
+57,Goldsmith,4,green,orange,false,castle,1 key per two-shield card,6 points if located in the left column
+58,Architect,4,green,,false,castle,Discount of 1 on Village cards,2 points per different shield type
+59,Patron,7,green,,true,castle,Opponents gain 2 gold,5 points per purse with a cost of 5 or more
+60,Judge,4,green,,false,castle,2 keys,3 points per pair of Castle and Village cards
+61,Winemaker,2,green,yellow,true,village,1 gold per Village card,2 points per different shield type in the same column
+62,Spy,4,green,red,true,village,1 gold per green shield AND 1 key per red shield of one neighbor,6 points if located in the middle column
+63,Inventor,2,green,green,true,village,1 gold per green shield,1 point per Village card
+64,Doctor,5,green,,false,village,1 gold per green shield and 1 gold per yellow shield,4 points per green+yellow shield pair
+65,Philosopher,2,green,,true,village,Discount of 1 on Castle cards,10 points if red shields are missing
+66,Brigand,7,yellow,,true,village,1 key per Castle card of one neighbor,7 points per set of 3 village banner icons
+67,Beggar,0,yellow,,true,village,1 gold per full space,2 points per purple shield in the same row or column
+68,Shepherd,5,yellow,,false,village,1 gold per empty space,3 points per yellow shield in the same row
+69,Farmer,5,yellow,yellow,false,village,1 key per yellow shield,7 points if located in the bottom row
+70,Woodcutter,0,yellow,,true,village,1 gold per full space,5 points if located in the right column
+71,Witch,4,yellow,,false,village,1 gold per yellow shield OR 1 key per purple shield of one neighbor,9 points if purple shields are missing
+72,Farmhand,0,yellow,,false,village,Discount of 1 on Village cards,2 points per gold up to a maximum of 5 gold
+73,Traveler,0,yellow,,true,village,3 gold per 0-cost card,2 points per 0-cost card
+74,Usurper,5,yellow,,false,village,1 key per single-shield card,2 points per Castle card
+75,Fisherman,2,yellow,yellow,true,village,Discount of 1 on Castle cards,4 points if located in a corner
+76,Revolutionary,4,yellow,,false,village,1 key per Village card,9 points if blue shields are missing
+77,Baker,0,yellow,,true,village,1 gold per yellow shield and 1 key per village banner icon,3 points if located in the middle space of any edge
+78,Beekeeper,2,yellow,,true,village,Gain 2 gold on each purse,2 points per gold on this purse up to a maximum of 9

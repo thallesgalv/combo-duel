@@ -1,0 +1,95 @@
+---
+import { attributes, locations } from "../lib/attributes";
+import { cardSizeVars, type CardView } from "../lib/cards";
+import { richText } from "../lib/richText";
+import "../styles/card.css";
+
+interface Props {
+  card: CardView;
+  bleed?: boolean;
+}
+
+const { card, bleed = false } = Astro.props;
+const { size, left, right, top, bottom } = card.imageEdition;
+const artVars = [`--art-x: ${left - right}px`, `--art-y: ${top - bottom}px`, `--art-scale: ${size}`].join("; ");
+const location = locations[card.location];
+// Capacidade da bolsa, lida do texto de pontos ("máx. 4")
+const purseMax = card.score.match(/máx\. (\d+)/)?.[1];
+---
+
+<article class:list={["card", `card-${card.location}`]} style={cardSizeVars(bleed)} data-card-id={card.id}>
+  <div class="card-face">
+    <header class="card-header">
+      <div class="card-cost" title="Custo">{card.cost}</div>
+      <h2 class:list={["card-name", { "card-name-long": card.name.length > 14 }]}>{card.name}</h2>
+      <div class="card-shields">
+        {
+          card.shields.map((shield) => {
+            const attr = attributes[shield];
+            return (
+              <span class="card-shield" style={`--attr: ${attr.color}; --attr-text: ${attr.text}`}>
+                {attr.label}
+              </span>
+            );
+          })
+        }
+      </div>
+    </header>
+
+    <div class="card-art-frame">
+      {
+        card.artSrc ? (
+          <img class="card-art" src={card.artSrc} alt={card.name} style={artVars} />
+        ) : (
+          <div class="card-art-missing">
+            sem arte
+            <br />
+            assets/art/{card.artFile}
+          </div>
+        )
+      }
+      {card.purse && <div class="card-purse" title="Bolsa">bolsa{purseMax && <b>{purseMax}</b>}</div>}
+    </div>
+
+    <div class="card-strip">
+      <span class="card-location">
+        <svg class="card-location-icon" viewBox="0 0 24 24" aria-hidden="true">
+          {
+            card.location === "castle" ? (
+              <path d="M3 21V9h3V5h3v3h2V5h2v3h2V5h3v4h3v12h-7v-5a2 2 0 0 0-4 0v5z" />
+            ) : (
+              <path d="M2 12 12 3l10 9h-3v9h-5v-6h-4v6H5v-9z" />
+            )
+          }
+        </svg>
+        {location.label}
+      </span>
+      {
+        card.moveMessenger && (
+          <span class="card-messenger" title="Mova o mensageiro">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 8h12l-3-3 1.4-1.4L20 9l-5.6 5.4L13 13l3-3H4zm16 8H8l3 3-1.4 1.4L4 15l5.6-5.4L11 11l-3 3h12z" />
+            </svg>
+            mensageiro
+          </span>
+        )
+      }
+    </div>
+
+    <div class="card-textbox">
+      <div class="card-ability">
+        <span class="card-label">Efeito</span>
+        <p set:html={richText(card.ability)} />
+      </div>
+      <div class="card-score">
+        <span class="card-label">Pontos</span>
+        <p set:html={richText(card.score)} />
+      </div>
+    </div>
+
+    <footer class="card-footer">
+      <span>#{String(card.id).padStart(3, "0")}</span>
+      <span>{card.originalName}</span>
+    </footer>
+  </div>
+</article>

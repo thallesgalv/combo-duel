@@ -22,8 +22,7 @@ export const shieldColors: Record<Shield, string> = {
 };
 
 // Qual escudo do Castle Combo vira qual tipo: vem de base/csv/vigentTypeColorShieldMapping.csv.
-// Trocar o CSV atualiza cartas, textos ([red] etc.) e wiki. Na página inicial dá para testar outro
-// mapeamento sem editar o CSV (ver CardGrid.astro).
+// Trocar o CSV atualiza os ícones de tipo nas cartas, textos ([red] etc.) e wiki.
 const mappingRows = mappingCsv
   .trim()
   .split(/\r?\n/)
@@ -51,7 +50,8 @@ export const shieldInfo = (shield: Shield) => {
 
 export const isShield = (s: string): s is Shield => s in shieldTypes;
 
-export const locations: Record<Location, { label: string; slug: string }> = {
-  castle: { label: "Castelo", slug: "castelo" },
-  village: { label: "Vilarejo", slug: "vilarejo" },
+export const locations: Record<Location, { label: string }> = {
+  // Castelo do Castle Combo = Baralho Dourado; Vilarejo = Baralho Preto (cor do verso e do ícone)
+  castle: { label: "Baralho Dourado" },
+  village: { label: "Baralho Preto" },
 };

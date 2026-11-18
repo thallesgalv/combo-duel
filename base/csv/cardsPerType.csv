@@ -1,108 +1,108 @@
-type,card
-beast,Harpie Lady
-beast,Catapult Turtle
-beast,Slifer the Sky Dragon
-beast,Chimera the Flying Mythical Beast
-beast,Obelisk the Tormentor
-beast,Exodia the Forbidden One
-beast,Battle Ox
-beast,Gazelle the King of Mythical Beasts
-beast,Panther Warrior
-beast,Alligator's Sword
-beast,Hitotsu-Me Giant
-beast,Tiger Axe
-beast,Beaver Warrior
-beast,Silver Fang
-beast,Mystic Horseman
-beast,Dark Rabbit
-beast,Toon Mermaid
-beast,Rabid Horseman
-machine,Cyber Harpie Lady
-machine,Jinzo
-machine,Time Wizard
-machine,Barrel Dragon
-machine,Metalzoa
-machine,Slot Machine
-machine,Pendulum Machine
-machine,X-Head Cannon
-machine,Y-Dragon Head
-machine,Z-Metal Tank
-machine,Launcher Spider
-machine,Blast Sphere
-machine,Labyrinth Tank
-machine,Jigen Bakudan
-machine,Valkyrion the Magna Warrior
-machine,Red-Eyes Black Metal Dragon
-machine,Catapult Turtle
-spellcaster,Exodia the Forbidden One
-spellcaster,Time Wizard
-spellcaster,Dark Magician
-spellcaster,Lord of D.
-spellcaster,Relinquished
-spellcaster,Dark Paladin
-spellcaster,Saggi the Dark Clown
-spellcaster,Dark Magician Girl
-spellcaster,Dark Sage
-spellcaster,Mystical Elf
-spellcaster,Magician of Black Chaos
-spellcaster,Witch of the Black Forest
-spellcaster,Illusionist Faceless Mage
-spellcaster,Toon Dark Magician Girl
-spellcaster,Thousand-Eyes Idol
-spellcaster,Copycat
-spellcaster,Magician of Faith
-spellcaster,Thousand-Eyes Restrict
-dragon,Barrel Dragon
-dragon,Slifer the Sky Dragon
-dragon,Lord of D.
-dragon,Blue-Eyes White Dragon
-dragon,Black Skull Dragon
-dragon,Red-Eyes Black Dragon
-dragon,Harpie's Pet Dragon
-dragon,Gaia the Dragon Champion
-dragon,Baby Dragon
-dragon,Meteor Black Dragon
-dragon,Curse of Dragon
-dragon,Thousand Dragon
-dragon,Blue-Eyes Ultimate Dragon
-dragon,"Winged Dragon, Guardian of the Fortress #1"
-dragon,The Winged Dragon of Ra
-dragon,Blue-Eyes Toon Dragon
-dragon,Manga Ryu-Ran
-dragon,Ryu-Ran
-fiend,Metalzoa
-fiend,Relinquished
-fiend,Black Skull Dragon
-fiend,Swordstalker
-fiend,Obelisk the Tormentor
-fiend,Summoned Skull
-fiend,Reaper of the Cards
-fiend,The Masked Beast
-fiend,Bickuribox
-fiend,Lava Golem
-fiend,Zoa
-fiend,Kuriboh
-fiend,Feral Imp
-fiend,Sangan
-fiend,Horn Imp
-fiend,Zera the Mant
-fiend,La Jinn the Mystical Genie of the Lamp
-fiend,Toon Summoned Skull
-warrior,Battle Ox
-warrior,Gearfried the Iron Knight
-warrior,Valkyrion the Magna Warrior
-warrior,Dark Paladin
-warrior,Gaia the Dragon Champion
-warrior,Gaia The Fierce Knight
-warrior,Swordstalker
-warrior,Gate Guardian
-warrior,Buster Blader
-warrior,Gilford the Lightning
-warrior,Judge Man
-warrior,Flame Swordsman
-warrior,Celtic Guardian
-warrior,Black Luster Soldier
-warrior,Big Shield Gardna
-warrior,Garoozis
-warrior,Masaki the Legendary Swordsman
-warrior,Axe Raider
+type,card,boxColor
+beast,Harpie Lady,normal
+beast,Catapult Turtle,effect
+beast,Slifer the Sky Dragon,slifer
+beast,Chimera the Flying Mythical Beast,fusion
+beast,Obelisk the Tormentor,obelisk
+beast,Exodia the Forbidden One,effect
+beast,Battle Ox,normal
+beast,Gazelle the King of Mythical Beasts,normal
+beast,Panther Warrior,effect
+beast,Alligator's Sword,normal
+beast,Hitotsu-Me Giant,normal
+beast,Tiger Axe,normal
+beast,Beaver Warrior,normal
+beast,Silver Fang,normal
+beast,Mystic Horseman,normal
+beast,Dark Rabbit,normal
+beast,Toon Mermaid,effect
+beast,Rabid Horseman,fusion
+machine,Cyber Harpie Lady,effect
+machine,Jinzo,effect
+machine,Time Wizard,effect
+machine,Barrel Dragon,effect
+machine,Metalzoa,effect
+machine,Slot Machine,normal
+machine,Pendulum Machine,normal
+machine,X-Head Cannon,normal
+machine,Y-Dragon Head,effect
+machine,Z-Metal Tank,normal
+machine,Launcher Spider,normal
+machine,Blast Sphere,effect
+machine,Labyrinth Tank,normal
+machine,Jigen Bakudan,effect
+machine,Valkyrion the Magna Warrior,effect
+machine,Red-Eyes Black Metal Dragon,effect
+machine,Catapult Turtle,effect
+spellcaster,Exodia the Forbidden One,effect
+spellcaster,Time Wizard,effect
+spellcaster,Dark Magician,normal
+spellcaster,Lord of D.,effect
+spellcaster,Relinquished,ritual
+spellcaster,Dark Paladin,fusion
+spellcaster,Saggi the Dark Clown,normal
+spellcaster,Dark Magician Girl,effect
+spellcaster,Dark Sage,effect
+spellcaster,Mystical Elf,normal
+spellcaster,Magician of Black Chaos,ritual
+spellcaster,Witch of the Black Forest,effect
+spellcaster,Illusionist Faceless Mage,effect
+spellcaster,Toon Dark Magician Girl,effect
+spellcaster,Thousand-Eyes Idol,normal
+spellcaster,Copycat,effect
+spellcaster,Magician of Faith,effect
+spellcaster,Thousand-Eyes Restrict,fusion
+dragon,Barrel Dragon,effect
+dragon,Slifer the Sky Dragon,slifer
+dragon,Lord of D.,effect
+dragon,Blue-Eyes White Dragon,normal
+dragon,Black Skull Dragon,fusion
+dragon,Red-Eyes Black Dragon,normal
+dragon,Harpie's Pet Dragon,effect
+dragon,Gaia the Dragon Champion,fusion
+dragon,Baby Dragon,normal
+dragon,Meteor Black Dragon,fusion
+dragon,Curse of Dragon,normal
+dragon,Thousand Dragon,fusion
+dragon,Blue-Eyes Ultimate Dragon,fusion
+dragon,"Winged Dragon, Guardian of the Fortress #1",normal
+dragon,The Winged Dragon of Ra,ra
+dragon,Blue-Eyes Toon Dragon,effect
+dragon,Manga Ryu-Ran,effect
+dragon,Ryu-Ran,normal
+fiend,Metalzoa,effect
+fiend,Relinquished,ritual
+fiend,Black Skull Dragon,fusion
+fiend,Swordstalker,effect
+fiend,Obelisk the Tormentor,obelisk
+fiend,Summoned Skull,normal
+fiend,Reaper of the Cards,effect
+fiend,The Masked Beast,ritual
+fiend,Bickuribox,fusion
+fiend,Lava Golem,effect
+fiend,Zoa,effect
+fiend,Kuriboh,effect
+fiend,Feral Imp,normal
+fiend,Sangan,effect
+fiend,Horn Imp,normal
+fiend,Zera the Mant,ritual
+fiend,La Jinn the Mystical Genie of the Lamp,normal
+fiend,Toon Summoned Skull,effect
+warrior,Battle Ox,normal
+warrior,Gearfried the Iron Knight,effect
+warrior,Valkyrion the Magna Warrior,effect
+warrior,Dark Paladin,fusion
+warrior,Gaia the Dragon Champion,fusion
+warrior,Gaia The Fierce Knight,normal
+warrior,Swordstalker,effect
+warrior,Gate Guardian,effect
+warrior,Buster Blader,effect
+warrior,Gilford the Lightning,effect
+warrior,Judge Man,normal
+warrior,Flame Swordsman,fusion
+warrior,Celtic Guardian,normal
+warrior,Black Luster Soldier,ritual
+warrior,Big Shield Gardna,effect
+warrior,Garoozis,normal
+warrior,Masaki the Legendary Swordsman,normal
+warrior,Axe Raider,normal

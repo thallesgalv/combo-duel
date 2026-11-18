@@ -13,7 +13,7 @@ export default defineConfig({
       locales: { root: { label: "Português", lang: "pt-BR" } },
       sidebar: [
         { label: "Regras", items: [{ autogenerate: { directory: "regras" } }] },
-        { label: "Cartas", items: [{ autogenerate: { directory: "cartas" } }] },
+        { label: "Cartas", link: "/" },
       ],
     }),
   ],

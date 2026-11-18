@@ -16,36 +16,23 @@ npm run dev      # http://localhost:4321/combo-duel/
 npm run build
 ```
 
-Páginas em `src/content/docs/` (regras em `regras/`, galerias em `cartas/`). A carta é um único componente (`src/components/Card.astro`), usado pelo wiki e pelo render.
+Páginas em `src/content/docs/` (regras em `regras/`; todas as cartas na página inicial). A carta é um único componente (`src/components/Card.astro`), usado pelo wiki e pelo render.
 
 ## Dados
 
 - `base/csv/originalCards.csv`: as 78 cartas do Castle Combo (extraídas de [listium](https://listium.com/@Marc/143495/castle-combo-card-list)), em inglês.
 - `base/csv/vigentTypeColorShieldMapping.csv`: qual escudo vira qual tipo (Mago, Dragão, Guerreiro, Besta, Demônio, Máquina).
-- `base/csv/cardsPerType.csv`: 18 cartas de Yu-Gi-Oh por tipo. `crossoverCardsPerType.csv`: uma carta por par de tipos (já incluída nos dois tipos). `lessWantedCardsPerType.csv`: as 5 menos queridas de cada tipo.
-- `data/cardTexts.ts`: textos da skin (`ability`, `score`) e `purse` por id. **Editado à mão.**
-- `data/cardList.ts`: **gerado** por `npm run cardlist` a partir dos CSVs e do `cardTexts.ts`; não editar.
+- `base/csv/cardsPerType.csv`, `crossoverCardsPerType.csv`, `lessWantedCardsPerType.csv`: listas de referência usadas para escolher qual carta de Yu-Gi-Oh cada carta virou (crossover = carta com 2 tipos; lessWanted = menos queridas). Não são lidas pelo build. `cardsPerType.csv` também tem o `boxColor` de cada carta.
+- `data/cardList.ts`: cartas do jogo, **editado à mão**. `name` e `art` = carta de Yu-Gi-Oh; `boxColor` (`normal` | `effect` | `fusion` | `ritual` | `slifer` | `obelisk` | `ra`) = moldura do painel e das caixas, como a carta real (coluna `boxColor` de `cardsPerType.csv`); `original*` guarda o texto original; `ability` e `score` são da skin.
 - Marcações no texto: `**negrito**`, `*(nota)*` e escudos `[red] [orange] [blue] [purple] [green] [yellow]`, que viram o selo do tipo de monstro.
-
-### Gerar o cardList
-
-```sh
-npm run cardlist
-```
-
-Cada carta vira uma carta de Yu-Gi-Oh (`name` + `art`), conforme o tipo dos escudos (`src/lib/artAssignment.ts`):
-
-1. Carta com 2 tipos diferentes → o crossover do par (ex.: Mago + Dragão = Lord of D.).
-2. Carta de 1 tipo (ou 2 escudos iguais) → as cartas "puras" do tipo (as 18 menos os 5 crossovers = 13), na ordem de `cardsPerType.csv` e por id.
-3. Se o tipo precisa de menos de 13, saem primeiro as de `lessWantedCardsPerType.csv`; se ainda sobrar, as últimas da lista.
-
-O comando mostra quantas artes cada tipo usa e avisa quando foi preciso cortar carta fora do lessWanted ou quando falta arte. Para testar outro mapeamento sem gerar nada, use o painel da página inicial do wiki.
 
 ## Imagens
 
-- `assets/artworks/`: arte das cartas de Yu-Gi-Oh. O arquivo é achado pelo nome da carta, tolerando sufixos como `__artwork__by_...` e prefixo `TEMP-` (ex.: `dark_magician__artwork__by_x.png`). Preenche a janela da arte (`object-fit: cover`, ~703×572px). Carta sem arte mostra placeholder com o caminho esperado.
+- `assets/artworks/`: arte das cartas de Yu-Gi-Oh. Cada carta aponta para o arquivo pelo campo `art` (nome sem extensão). Preenche a janela da arte (`object-fit: cover`, ~703×572px). Carta sem arte mostra placeholder com o caminho esperado.
 - `assets/types/<tipo>.png` (`spellcaster`, `dragon`, `warrior`, `beast`, `fiend`, `machine`): ícones dos tipos, coluna DG de https://yugioh.fandom.com/wiki/Type. Sem o arquivo, o círculo mostra o nome do tipo.
-- `assets/frame/`: texturas recortadas do template do [AYGOCM](https://github.com/legovader09/AYGOCM-Web) (moldura cinza, painel amarelo do monstro normal, painel laranja = o amarelo retingido, caixa de ATK/DEF e estrela de nível).
+- `assets/frame/`: texturas dos templates do [AYGOCM](https://github.com/legovader09/AYGOCM-Web) (400×583, em `Files/` dentro de `AYGOCM-Web/JAR/AnimeYuGiOhCardMaker.jar`): moldura cinza, estrela de nível e, por tipo de carta (normal = amarelo, efeito = laranja, fusão = roxo, ritual = azul; deuses: Slifer = vermelho, Obelisk = azul, Ra = amarelo):
+  - `panel-village.png` (normal), `panel-effect.png`, `panel-fusion.png`, `panel-ritual.png`, `panel-slifer.png`, `panel-obelisk.png`, `panel-ra.png`: painel de baixo sem as caixas e o círculo. O normal foi limpo à mão; os outros são o normal recolorido com as cores do template correspondente (`effect.png`, `fusion.png`, `ritual.png`, `slifer.png`, `obelisk.png`, `ra.png`).
+  - `box-normal.png`, `box.png` (efeito), `box-fusion.png`, `box-ritual.png`, `box-slifer.png`, `box-obelisk.png`, `box-ra.png`: caixa de ATK/DEF, recortada em (30, 497) 157×66 de cada template.
 
 ## Cartas para impressão
 

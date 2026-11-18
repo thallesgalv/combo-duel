@@ -9,7 +9,7 @@ Combo Duel é uma skin Yu-Gi-Oh de **Castle Combo**. Cada jogador recruta **9 ca
 
 ## Componentes
 
-- **78 cartas**: 39 de **Castelo** e 39 de **Vilarejo** (baralhos com versos diferentes).
+- **78 cartas**: 39 do **Baralho Dourado** e 39 do **Baralho Preto** (versos diferentes).
 - **1 mensageiro**: indica de qual fileira se compra.
 - **Ouro** e **chaves**: não são limitados; se acabarem, use qualquer substituto.
 
@@ -19,7 +19,7 @@ Combo Duel é uma skin Yu-Gi-Oh de **Castle Combo**. Cada jogador recruta **9 ca
 |---|---|---|
 | Custo | estrelas na base da arte | ouro pago para comprar a carta (sem estrelas = custo 0) |
 | Tipos | círculos no canto superior direito | os “escudos” do jogo original (1 ou 2 por carta) |
-| Castelo / Vilarejo | cor do painel (laranja / amarelo) e ícone ao lado do nome | baralho de origem; também é o “ícone de Castelo/Vilarejo” citado em alguns textos |
+| Baralho Dourado / Preto | triângulo do mensageiro (▼ preto nas cartas do Dourado / ▲ dourado nas do Preto) | baralho de origem; também é o ícone de carta dourada/preta citado em alguns textos |
 | Mensageiro | selo no canto superior esquerdo da arte | ao comprar a carta, o mensageiro vai para o lado dela |
 | Bolsa | círculo tracejado na arte | guarda ouro no fim do jogo |
 | Efeito | caixa de texto de cima | resolve uma vez, logo após a compra |

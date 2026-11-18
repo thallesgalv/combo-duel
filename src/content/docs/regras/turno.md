@@ -33,7 +33,7 @@ O efeito resolve logo após a carta entrar no reino.
 
 ## 4. Mover o mensageiro e repor (obrigatório)
 
-- Se a carta comprada tem o selo **mensageiro**, mova o mensageiro para a fileira do baralho dela (Castelo ou Vilarejo).
+- Se a carta comprada tem o selo **mensageiro**, mova o mensageiro para a fileira do baralho dela (Dourado ou Preto).
 - Sem selo, ou carta virada para baixo: o mensageiro não se move.
 - Reponha as duas fileiras até 3 cartas.
 

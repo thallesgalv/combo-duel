@@ -153,7 +153,7 @@
   object-fit: cover;
 }
 
-/* Mensageiro: triângulo no canto inferior esquerdo (Castelo ▲ dourado, Vilarejo ▼ preto) */
+/* Mensageiro: triângulo no canto inferior esquerdo (carta do Baralho Dourado: ▼ preto; do Baralho Preto: ▲ dourado) */
 /* Base alinhada com a das estrelas, no canto inferior esquerdo da arte */
 .card-messenger {
   top: calc(var(--art-h) - 26px - 12px - 72px);
@@ -169,14 +169,14 @@
   stroke-linejoin: round;
 }
 
-.card-messenger-up polygon {
-  fill: #e9c25a;
-  stroke: #5a3d0a;
-}
-
-.card-messenger-down polygon {
+.card-messenger-castle polygon {
   fill: #111;
   stroke: #e9c25a;
+}
+
+.card-messenger-village polygon {
+  fill: #e9c25a;
+  stroke: #5a3d0a;
 }
 
 /* Estrelas (custo): na base da arte, como a faixa de nível das cartas do anime */
@@ -208,6 +208,62 @@
   border-style: solid;
   border-width: 15px;
   border-image: url("../../assets/frame/panel-village.png") 8 fill / 15px stretch;
+}
+
+/* Moldura por boxColor: painel e caixas de normal (amarelo), efeito (laranja), fusão (roxo), ritual (azul)
+   e dos deuses egípcios (Slifer vermelho, Obelisk azul, Ra amarelo) */
+.card-frame-effect .card-panel {
+  border-image-source: url("../../assets/frame/panel-effect.png");
+}
+
+.card-frame-fusion .card-panel {
+  border-image-source: url("../../assets/frame/panel-fusion.png");
+}
+
+.card-frame-ritual .card-panel {
+  border-image-source: url("../../assets/frame/panel-ritual.png");
+}
+
+.card-frame-normal .card-box,
+.card-frame-normal .card-or-line {
+  border-image-source: url("../../assets/frame/box-normal.png");
+}
+
+.card-frame-fusion .card-box,
+.card-frame-fusion .card-or-line {
+  border-image-source: url("../../assets/frame/box-fusion.png");
+}
+
+.card-frame-ritual .card-box,
+.card-frame-ritual .card-or-line {
+  border-image-source: url("../../assets/frame/box-ritual.png");
+}
+
+.card-frame-slifer .card-panel {
+  border-image-source: url("../../assets/frame/panel-slifer.png");
+}
+
+.card-frame-slifer .card-box,
+.card-frame-slifer .card-or-line {
+  border-image-source: url("../../assets/frame/box-slifer.png");
+}
+
+.card-frame-obelisk .card-panel {
+  border-image-source: url("../../assets/frame/panel-obelisk.png");
+}
+
+.card-frame-obelisk .card-box,
+.card-frame-obelisk .card-or-line {
+  border-image-source: url("../../assets/frame/box-obelisk.png");
+}
+
+.card-frame-ra .card-panel {
+  border-image-source: url("../../assets/frame/panel-ra.png");
+}
+
+.card-frame-ra .card-box,
+.card-frame-ra .card-or-line {
+  border-image-source: url("../../assets/frame/box-ra.png");
 }
 
 /* Caixas de efeito e pontos, empilhadas (moldura das caixas de ATK/DEF do template) */
@@ -280,7 +336,16 @@
   position: relative;
   flex: 1;
   min-width: 0;
-  padding: 0 24px;
+  padding: 0 16px;
+}
+
+/* Espaço para o selo (64px no centro): o texto de cada metade não encosta nele */
+.card-box-or p:first-of-type {
+  padding-right: 42px;
+}
+
+.card-box-or p:last-of-type {
+  padding-left: 42px;
 }
 
 .card-or,
@@ -334,6 +399,15 @@
      então pode crescer sem aumentar a altura da linha */
   margin: calc((1em - var(--rt-icon, 1.4em)) / 2) 0.05em;
   vertical-align: -0.2em;
+}
+
+/* Ícones repetidos ("Ganhe 3 chaves" → 3 olhos) ficam juntos na mesma linha */
+.rt-repeat {
+  white-space: nowrap;
+}
+
+.rt-repeat .rt-key {
+  margin-left: 0.05em;
 }
 
 /* O olho do milênio fica colado no número ("1🔑"): um respiro à esquerda */
@@ -393,7 +467,7 @@
 }
 
 .rt-arrow-u {
-  top: -0.58em;
+  top: -0.5em;
   left: 50%;
   margin-left: -0.22em;
   border-top: 0;
@@ -401,7 +475,7 @@
 }
 
 .rt-arrow-d {
-  bottom: -0.58em;
+  bottom: -0.5em;
   left: 50%;
   margin-left: -0.22em;
   border-bottom: 0;

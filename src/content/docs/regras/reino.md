@@ -14,7 +14,7 @@ sidebar:
 
 ## Descontos
 
-- Cartas de **Desconto** reduzem o custo das próximas compras (de Castelo, de Vilarejo ou de todas).
+- Cartas de **Desconto** reduzem o custo das próximas compras (do Baralho Dourado, do Baralho Preto ou de todas).
 - Descontos se somam. Uma carta não custa menos que 0 e o excedente não volta como ouro.
 - O desconto de uma carta não vale para a própria compra.
 

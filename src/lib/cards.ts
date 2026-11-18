@@ -1,7 +1,6 @@
 import { cardConfig } from "../../card.config";
 import { cardList } from "../../data/cardList";
 import type { Card } from "../../types/cardType";
-import { artworksByFile } from "./artworks";
 import { shieldTypes } from "./monsterTypes";
 
 export type CardView = Card & {
@@ -34,13 +33,20 @@ export const cardSizeVars = (bleed: boolean) =>
 export const cardFileName = (card: Pick<Card, "id" | "name">) =>
   `${String(card.id).padStart(3, "0")}-${slug(card.name)}.png`;
 
+// Nome do arquivo em assets/artworks/ (sem extensão) → URL
+const artworks = new Map(
+  Object.entries(
+    import.meta.glob<ImageMetadata>("../../assets/artworks/*.{png,jpg,jpeg,webp}", { eager: true, import: "default" }),
+  ).map(([path, image]) => [path.split("/").pop()!.replace(/\.[^.]+$/, ""), image.src]),
+);
+
 // Mapeamento escudo → tipo do CSV (usado pelo painel da página inicial)
 export const csvMapping = Object.fromEntries(Object.entries(shieldTypes).map(([shield, { type }]) => [shield, type]));
 
 export const getCards = (): CardView[] =>
   cardList.map((card) => ({
     ...card,
-    artSrc: card.art ? artworksByFile.get(card.art)?.src : undefined,
-    artFile: card.art ? `${card.art}.png` : "(sem arte: rode npm run cardlist)",
+    artSrc: card.art ? artworks.get(card.art) : undefined,
+    artFile: card.art ? `${card.art}.png` : "(defina art no cardList)",
     fileName: cardFileName(card),
   }));

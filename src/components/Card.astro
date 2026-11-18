@@ -15,7 +15,7 @@ interface Props {
 // e no painel de monstro normal as caixas de efeito e pontuação empilhadas.
 const { card, bleed = false } = Astro.props;
 const types = card.shields.map(shieldInfo);
-// Mensageiro: Castelo ▲ dourado, Vilarejo ▼ preto
+// Mensageiro: Baralho Dourado (castle) ▼ preto, Baralho Preto (village) ▲ dourado
 const castle = card.location === "castle";
 // Caixas de texto; com **OU** ou **E** a caixa se divide em duas partes separadas por uma
 // diagonal, com a conjunção num selo no meio
@@ -29,7 +29,7 @@ const boxes = [
 });
 ---
 
-<article class="card" style={cardSizeVars(bleed)} data-card-id={card.id}>
+<article class={`card card-frame-${card.boxColor}`} style={cardSizeVars(bleed)} data-card-id={card.id}>
   <div class="card-face">
     <div class="card-art-frame">
       {
@@ -47,8 +47,8 @@ const boxes = [
 
     <div class="card-types">
       {
-        types.map((type, i) => (
-          <span class="card-type" style={`--type: ${type.color}`} title={type.label} data-shield={card.shields[i]}>
+        types.map((type) => (
+          <span class="card-type" style={`--type: ${type.color}`} title={type.label}>
             {type.icon ? <img src={type.icon} alt={type.label} /> : type.label}
           </span>
         ))
@@ -58,13 +58,13 @@ const boxes = [
     {
       card.moveMessenger && (
         <svg
-          class:list={["card-messenger", castle ? "card-messenger-up" : "card-messenger-down"]}
+          class:list={["card-messenger", castle ? "card-messenger-castle" : "card-messenger-village"]}
           viewBox="0 0 100 100"
           role="img"
           aria-label="Mova o mensageiro"
         >
           <title>Mova o mensageiro</title>
-          <polygon points={castle ? "50,8 94,88 6,88" : "6,12 94,12 50,92"} />
+          <polygon points={castle ? "6,12 94,12 50,92" : "50,8 94,88 6,88"} />
         </svg>
       )
     }

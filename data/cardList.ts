@@ -127,7 +127,7 @@ export const cardList: Card[] = [
     // Blacksmith · machine + beast
     id: 8,
     name: "Catapult Turtle",
-    art: "TEMP-catapult-turtle",
+    art: "catapult_turtle_artwork__by_nhociory_dhct2ha",
     boxColor: "effect",
     originalName: "Blacksmith",
     location: "village",
@@ -161,7 +161,7 @@ export const cardList: Card[] = [
     // Bombardier · machine
     id: 10,
     name: "Blast Sphere",
-    art: "TEMP-blast-sphere",
+    art: "blast_sphere_artwork__by_nhociory_dg31f37",
     boxColor: "effect",
     originalName: "Bombardier",
     location: "village",
@@ -195,7 +195,7 @@ export const cardList: Card[] = [
     // Barbarian · machine
     id: 12,
     name: "Jigen Bakudan",
-    art: "TEMP-jigen-bakudan",
+    art: "jigen_bakudan_artwork__by_nhociory_dhzm72o",
     boxColor: "effect",
     originalName: "Barbarian",
     location: "village",
@@ -297,7 +297,7 @@ export const cardList: Card[] = [
     // Potter · beast
     id: 18,
     name: "Alligator's Sword",
-    art: "TEMP-alligators-sword",
+    art: "alligator_s_sword_artwork__by_nhociory_dg31i5h",
     boxColor: "normal",
     originalName: "Potter",
     location: "village",
@@ -382,7 +382,7 @@ export const cardList: Card[] = [
     // Spice Merchant · beast
     id: 23,
     name: "Silver Fang",
-    art: "TEMP-silver-fang",
+    art: "silver_fang_artwork__by_nhociory_dglxhqk",
     boxColor: "normal",
     originalName: "Spice Merchant",
     location: "village",
@@ -416,7 +416,7 @@ export const cardList: Card[] = [
     // Innkeeper · beast
     id: 25,
     name: "Toon Mermaid",
-    art: "TEMP-toon-mermaid",
+    art: "toon_mermaid_artwork__by_nhociory_dg0vzd6",
     boxColor: "effect",
     originalName: "Innkeeper",
     location: "village",
@@ -603,7 +603,7 @@ export const cardList: Card[] = [
     // Steward · spellcaster
     id: 36,
     name: "Illusionist Faceless Mage",
-    art: "TEMP-illlusionist-faceless-mage",
+    art: "illusionist_faceless_mage_artwork__by_nhociory_dhzm734",
     boxColor: "effect",
     originalName: "Steward",
     location: "castle",
@@ -688,7 +688,7 @@ export const cardList: Card[] = [
     // His Holiness · dragon
     id: 41,
     name: "The Winged Dragon of Ra",
-    art: "TEMP-The Winged Dragon Of Ra",
+    art: "the_winged_dragon_of_ra_artwork__by_nhociory_dg330h7",
     boxColor: "ra",
     originalName: "His Holiness",
     location: "castle",
@@ -722,7 +722,7 @@ export const cardList: Card[] = [
     // Templar · dragon + machine
     id: 43,
     name: "Red-Eyes Black Metal Dragon",
-    art: "TEMP-red-eyes-black-metal-dragon",
+    art: "red_eyes_black_metal_dragon_artwork__by_nhociory_dfa12fg",
     boxColor: "effect",
     originalName: "Templar",
     location: "castle",
@@ -1045,7 +1045,7 @@ export const cardList: Card[] = [
     // Spy · warrior + machine
     id: 62,
     name: "Valkyrion the Magna Warrior",
-    art: "TEMP-valkyrion-the-magna-warrior",
+    art: "valkyrion_the_magna_warrior_artwork__by_nhociory_dfb47c2",
     boxColor: "effect",
     originalName: "Spy",
     location: "village",
@@ -1130,7 +1130,7 @@ export const cardList: Card[] = [
     // Beggar · fiend
     id: 67,
     name: "Reaper of the Cards",
-    art: "TEMP-Reaper of Cards",
+    art: "reaper_of_the_cards_artwork__by_nhociory_dg2qcif",
     boxColor: "effect",
     originalName: "Beggar",
     location: "village",
@@ -1266,7 +1266,7 @@ export const cardList: Card[] = [
     // Fisherman · fiend
     id: 75,
     name: "Horn Imp",
-    art: "TEMP-Horn Imp",
+    art: "horn_imp_artwork__by_nhociory_dhct2jv",
     boxColor: "normal",
     originalName: "Fisherman",
     location: "village",
@@ -1317,7 +1317,7 @@ export const cardList: Card[] = [
     // Beekeeper · fiend
     id: 78,
     name: "Toon Summoned Skull",
-    art: "TEMP-Toon Summoned Skull",
+    art: "toon_summoned_skull_artwork__by_nhociory_dg0vzef",
     boxColor: "effect",
     originalName: "Beekeeper",
     location: "village",

@@ -10,6 +10,8 @@ export type CardView = Card & {
   artFile: string;
   // Nome do PNG gerado pelo CLI, ex.: 001-vigia.png
   fileName: string;
+  // URL da imagem da carta original (assets/originals/)
+  originalSrc?: string;
 };
 
 export const slug = (s: string) =>
@@ -40,6 +42,13 @@ const artworks = new Map(
   ).map(([path, image]) => [path.split("/").pop()!.replace(/\.[^.]+$/, ""), image.src]),
 );
 
+// Imagem da carta original do Castle Combo: assets/originals/<id>-<nome>.webp (id = linha do originalCards.csv)
+const originals = new Map(
+  Object.entries(
+    import.meta.glob<ImageMetadata>("../../assets/originals/*.webp", { eager: true, import: "default" }),
+  ).map(([path, image]) => [Number(path.split("/").pop()!.split("-")[0]), image.src]),
+);
+
 // Mapeamento escudo → tipo do CSV (usado pelo painel da página inicial)
 export const csvMapping = Object.fromEntries(Object.entries(shieldTypes).map(([shield, { type }]) => [shield, type]));
 
@@ -49,4 +58,5 @@ export const getCards = (): CardView[] =>
     artSrc: card.art ? artworks.get(card.art) : undefined,
     artFile: card.art ? `${card.art}.png` : "(defina art no cardList)",
     fileName: cardFileName(card),
+    originalSrc: originals.get(card.id),
   }));

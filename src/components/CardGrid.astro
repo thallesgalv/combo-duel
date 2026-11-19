@@ -167,6 +167,9 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
               <li>{card.originalAbility}</li>
               <li>{card.originalScore}</li>
             </ul>
+            {card.originalSrc && (
+              <img class="card-modal-original" src={card.originalSrc} alt={card.originalName} loading="lazy" />
+            )}
           </section>
         </template>
         {hasPng(card.fileName) && (
@@ -601,6 +604,15 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .card-modal-info :global(.card-modal-original) {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    margin: 12px auto 0;
+    border-radius: 8px;
   }
 
   .card-grid-count {

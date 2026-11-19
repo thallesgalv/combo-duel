@@ -482,6 +482,30 @@
   border-top: 0.34em solid var(--ink, #2a1a06);
 }
 
+/* Mini reino 3×3: 9 mini cartas brancas, posições citadas em cinza (ver lib/richText.ts) */
+.rt-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.05em;
+  height: var(--rt-icon, 1.4em);
+  aspect-ratio: 0.78;
+  margin: calc((1em - var(--rt-icon, 1.4em)) / 2) 0.1em;
+  /* centro da grade no meio da altura das letras (a grade não tem linha de base própria) */
+  vertical-align: middle;
+}
+
+.rt-grid i {
+  display: block;
+  background: #fff;
+  border: 0.03em solid var(--ink, #2a1a06);
+  border-radius: 0.04em;
+}
+
+.rt-grid i.on {
+  background: #5e5e5e;
+}
+
 
 .card .attr,
 .card-modal .attr,

@@ -1,7 +1,5 @@
 import star from "../../assets/frame/star.png";
 import key from "../../assets/icons/key.png";
-import rowIcon from "../../assets/icons/row.svg?url";
-import columnIcon from "../../assets/icons/column.svg?url";
 import castleCard from "../../assets/icons/card-castle.svg?url";
 import villageCard from "../../assets/icons/card-village.svg?url";
 import purse from "../../assets/icons/purse.svg?url";
@@ -19,12 +17,21 @@ const typeImg = (shield: string) => {
 
 const goldIcon = icon("rt-icon", star.src, "ouro");
 const keyIcon = icon("rt-icon rt-key", key.src, "chave");
+// Mini reino 3×3 (9 cartas brancas); as posições citadas (índices 0–8) ficam pretas
+const grid = (cells: number[], label: string) =>
+  `<span class="rt-grid" title="${label}">` +
+  Array.from({ length: 9 }, (_, i) => (cells.includes(i) ? '<i class="on"></i>' : "<i></i>")).join("") +
+  "</span>";
+
+const ROWS: Record<string, number[]> = { superior: [0, 1, 2], central: [3, 4, 5], inferior: [6, 7, 8] };
+const COLS: Record<string, number[]> = { esquerda: [0, 3, 6], central: [1, 4, 7], direita: [2, 5, 8] };
+
 // Ícone repetido n vezes, junto na mesma linha
 const repeat = (img: string, n: string) => `<span class="rt-repeat">${img.repeat(Number(n))}</span>`;
 
 // Ícones no lugar das palavras:
 //   N **ouro** / N **chaves** / **Desconto** de N → o ícone repetido N vezes, sem numeral
-//   linha / coluna → setas (◀▶ / ▲▼)       **ouro** → estrela
+//   linha X / coluna X / canto / meio de borda / mesma linha|coluna → mini grade 3×3   **ouro** → estrela
 //   **chave(s)** → olho do milênio  **bolsa(s)** → sacola  **Castelo** / **Vilarejo** (marcação) → carta do Baralho Dourado / Preto
 //   [red] (cor do escudo) → ícone do tipo
 // (Na carta, **OU** divide a caixa em duas: ver Card.astro)
@@ -46,8 +53,14 @@ export const richText = (s: string) =>
         .join("");
       return `<span class="rt-around${row ? " rt-row" : ""}">${img}${arrows}</span>`;
     })
-    .replace(/\blinha\b/g, icon("rt-icon", rowIcon, "linha"))
-    .replace(/\bcoluna\b/g, icon("rt-icon", columnIcon, "coluna"))
+    // Posições no reino → mini grade 3×3 com as casas citadas em preto
+    .replace(/\b(?:na|a) linha (superior|central|inferior)\b/g, (_, w: string) => grid(ROWS[w], `linha ${w}`))
+    .replace(/\b(?:na|a) coluna (esquerda|central|direita)\b/g, (_, w: string) => grid(COLS[w], `coluna ${w}`))
+    .replace(/\bem um canto\b/g, grid([0, 2, 6, 8], "canto"))
+    .replace(/\bno meio de uma borda\b/g, grid([1, 3, 5, 7], "meio de uma borda"))
+    // Relativa (sem tipo): a carta no centro, a linha/coluna dela em preto
+    .replace(/\bna mesma linha\b/g, grid(ROWS.central, "mesma linha"))
+    .replace(/\bna mesma coluna\b/g, grid(COLS.central, "mesma coluna"))
     // Quantidades viram o ícone repetido, sem numeral:
     //   "Ganhe 3 **chaves**" → 🔑🔑🔑 (sem o "Ganhe")
     //   "2 **ouro** por [blue]" → ⭐⭐ por …   "os oponentes ganham 1 **chave**" → … 🔑

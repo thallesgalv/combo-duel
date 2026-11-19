@@ -27,6 +27,9 @@ const labData = {
 };
 // PNGs só existem depois de `npm run cards -- --public`
 const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
+// Texto pesquisável: nome Yu-Gi-Oh + nome original do Castle Combo, sem acentos e em minúsculas
+const searchText = (...names: string[]) =>
+  names.join(" ").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 ---
 
 {
@@ -83,6 +86,17 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
   )
 }
 
+<div class="card-search not-content">
+  <input
+    type="search"
+    class="card-search-input"
+    placeholder="Buscar carta (Yu-Gi-Oh ou Castle Combo)"
+    aria-label="Buscar carta pelo nome Yu-Gi-Oh ou Castle Combo"
+    autocomplete="off"
+    spellcheck="false"
+  />
+</div>
+
 <p class="card-grid-count not-content">{cards.length} cartas</p>
 
 <div class="card-grid not-content">
@@ -94,6 +108,7 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
         data-location={card.location}
         data-cost={card.cost}
         data-id={card.id}
+        data-search={searchText(card.name, card.originalName)}
       >
         <button type="button" class="card-open" aria-label={`Ver ${card.name} em tamanho grande`}>
           <Card card={card} />
@@ -196,6 +211,39 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
 </dialog>
 
 <script>
+  const figures = [...document.querySelectorAll<HTMLElement>(".card-grid figure")];
+  const count = document.querySelector<HTMLElement>(".card-grid-count")!;
+  const searchInput = document.querySelector<HTMLInputElement>(".card-search-input")!;
+  const normalize = (text: string) =>
+    text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  // Filtro do painel (tipo/baralho); sem painel, aceita tudo
+  let labMatches: (f: HTMLElement) => boolean = () => true;
+  let labActive = () => false;
+  let afterFilter = () => {};
+  let resetLab = () => {};
+
+  // Busca + painel: todos os termos digitados precisam aparecer no nome YGO ou no Castle Combo
+  const applyFilter = () => {
+    const terms = normalize(searchInput.value).split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const f of figures) {
+      const ok = labMatches(f) && terms.every((t) => f.dataset.search!.includes(t));
+      f.hidden = !ok;
+      shown += +ok;
+    }
+    count.textContent =
+      terms.length || labActive() ? `${shown} de ${figures.length} cartas` : `${figures.length} cartas`;
+    afterFilter();
+  };
+
+  // Ao digitar, o painel volta para "Todos" para a busca valer sobre todas as cartas
+  searchInput.addEventListener("input", () => {
+    if (searchInput.value.trim()) resetLab();
+    applyFilter();
+  });
+  // Mantém o filtro se o navegador restaurar o texto (voltar/avançar)
+  if (searchInput.value) applyFilter();
+
   // Painel da página inicial: distribuição por tipo e filtro por tipo
   const lab = document.querySelector<HTMLElement>(".lab");
   if (lab) {
@@ -207,11 +255,9 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
       types: Record<string, Info>;
     };
     const map = data.csv;
-    const figures = [...document.querySelectorAll<HTMLElement>(".card-grid figure")];
     const chips = [...lab.querySelectorAll<HTMLButtonElement>("[data-filter]")];
     const deckChips = [...lab.querySelectorAll<HTMLButtonElement>("[data-deck]")];
     const mentionsBox = lab.querySelector<HTMLInputElement>("[data-mentions]")!;
-    const count = document.querySelector<HTMLElement>(".card-grid-count")!;
     let filter = "";
     let deck = "";
 
@@ -242,18 +288,17 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
         .join("");
     };
 
-    const applyFilter = () => {
-      let shown = 0;
-      for (const f of figures) {
-        const ok =
-          (!deck || f.dataset.location === deck) &&
-          (!filter ||
-            typesOf(f.dataset.shields!).includes(filter) ||
-            (mentionsBox.checked && typesOf(f.dataset.mentions!).includes(filter)));
-        f.hidden = !ok;
-        shown += +ok;
-      }
-      count.textContent = filter || deck ? `${shown} de ${figures.length} cartas` : `${figures.length} cartas`;
+    labMatches = (f) =>
+      (!deck || f.dataset.location === deck) &&
+      (!filter ||
+        typesOf(f.dataset.shields!).includes(filter) ||
+        (mentionsBox.checked && typesOf(f.dataset.mentions!).includes(filter)));
+    labActive = () => Boolean(filter || deck);
+    resetLab = () => {
+      filter = "";
+      deck = "";
+    };
+    afterFilter = () => {
       chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.filter === filter)));
       deckChips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.deck === deck)));
     };
@@ -606,6 +651,15 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
     gap: 6px;
   }
 
+  /* Tema escuro: setas de linha/coluna em branco no texto do modal (fora da carta) */
+  :global(:root[data-theme="dark"]) .card-modal-info :global(.rt-dir) {
+    filter: brightness(0) invert(1);
+  }
+
+  :global(:root[data-theme="dark"]) .card-modal-info :global(.rt-around) {
+    --ink: #fff;
+  }
+
   .card-modal-info :global(.card-modal-original) {
     display: block;
     width: 100%;
@@ -613,6 +667,29 @@ const hasPng = (fileName: string) => existsSync(`public/cards/${fileName}`);
     height: auto;
     margin: 12px auto 0;
     border-radius: 8px;
+  }
+
+  .card-search {
+    margin-bottom: 0.75rem;
+  }
+
+  .card-search-input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 420px;
+    padding: 8px 14px;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 999px;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    font: inherit;
+    font-size: 0.95rem;
+  }
+
+  .card-search-input:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
   }
 
   .card-grid-count {

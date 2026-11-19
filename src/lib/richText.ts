@@ -1,5 +1,7 @@
 import star from "../../assets/frame/star.png";
 import key from "../../assets/icons/key.png";
+import rowIcon from "../../assets/icons/row.svg?url";
+import columnIcon from "../../assets/icons/column.svg?url";
 import castleCard from "../../assets/icons/card-castle.svg?url";
 import villageCard from "../../assets/icons/card-village.svg?url";
 import purse from "../../assets/icons/purse.svg?url";
@@ -31,7 +33,8 @@ const repeat = (img: string, n: string) => `<span class="rt-repeat">${img.repeat
 
 // Ícones no lugar das palavras:
 //   N **ouro** / N **chaves** / **Desconto** de N → o ícone repetido N vezes, sem numeral
-//   linha X / coluna X / canto / meio de borda / mesma linha|coluna → mini grade 3×3   **ouro** → estrela
+//   linha X / coluna X / canto / meio de borda (posição fixa) → mini grade 3×3
+//   nesta linha / coluna (relativa) → setas (◀▶ / ▲▼)       **ouro** → estrela
 //   **chave(s)** → olho do milênio  **bolsa(s)** → sacola  **Castelo** / **Vilarejo** (marcação) → carta do Baralho Dourado / Preto
 //   [red] (cor do escudo) → ícone do tipo
 // (Na carta, **OU** divide a caixa em duas: ver Card.astro)
@@ -41,8 +44,8 @@ export const richText = (s: string) =>
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    // "[blue] na mesma linha/coluna" → setas ao redor do ícone do tipo
-    .replace(/\[([a-z]+)\] na mesma (linha ou coluna|linha|coluna)\b/g, (match, shield: string, where: string) => {
+    // "[blue] nesta linha/coluna" → setas ao redor do ícone do tipo
+    .replace(/\[([a-z]+)\] nesta (linha ou coluna|linha|coluna)\b/g, (match, shield: string, where: string) => {
       const img = typeImg(shield);
       if (!img) return match;
       const row = where.includes("linha");
@@ -58,12 +61,13 @@ export const richText = (s: string) =>
     .replace(/\b(?:na|a) coluna (esquerda|central|direita)\b/g, (_, w: string) => grid(COLS[w], `coluna ${w}`))
     .replace(/\bem um canto\b/g, grid([0, 2, 6, 8], "canto"))
     .replace(/\bno meio de uma borda\b/g, grid([1, 3, 5, 7], "meio de uma borda"))
-    // Relativa (sem tipo): a carta no centro, a linha/coluna dela em preto
-    .replace(/\bna mesma linha\b/g, grid(ROWS.central, "mesma linha"))
-    .replace(/\bna mesma coluna\b/g, grid(COLS.central, "mesma coluna"))
+    // Relativa ("tipo diferente nesta linha/coluna"): continua com as setas (◀▶ / ▲▼)
+    // (só depois de "nesta": o title da grade também tem "linha"/"coluna")
+    .replace(/(?<=\bnesta )linha\b/g, icon("rt-icon rt-dir", rowIcon, "linha"))
+    .replace(/(?<=\bnesta )coluna\b/g, icon("rt-icon rt-dir", columnIcon, "coluna"))
     // Quantidades viram o ícone repetido, sem numeral:
     //   "Ganhe 3 **chaves**" → 🔑🔑🔑 (sem o "Ganhe")
-    //   "2 **ouro** por [blue]" → ⭐⭐ por …   "os oponentes ganham 1 **chave**" → … 🔑
+    //   "2 **ouro** por [blue]" → ⭐⭐ por …   "oponentes ganham 1 **chave**" → … 🔑
     //   "**Desconto** de 1" → **Desconto** de ⭐ (é ouro a menos)
     .replace(/\b[Gg]anhe (\d+) \*\*chaves?\*\*/g, (_, n: string) => repeat(keyIcon, n))
     .replace(/\b(\d+) \*\*ouro\*\*/g, (_, n: string) => repeat(goldIcon, n))

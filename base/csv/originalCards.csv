@@ -2,7 +2,7 @@ id,name,cost,shield1,shield2,moveMessenger,location,ability,score
 1,Lookout,6,red,,false,castle,1 key per red shield,4 points per different shield type in the same column
 2,Knight,5,red,,false,castle,1 gold per Castle card,3 points per blue shield in the same row or column
 3,General,7,red,,false,castle,1 key per different shield,6 points per set of 3 matching shields
-4,Chaplain,5,red,red,true,castle,Discount of 1 on Village cards,8 points if located in the right column is full
+4,Captain,5,red,red,true,castle,Discount of 1 on Village cards,8 points if located in the right column is full
 5,Officer,5,red,,false,castle,1 gold per blue and red shield,4 points per blue+red shield pair
 6,Mercenary,6,red,yellow,false,village,1 gold per different shield type,7 points per set of purple+red+yellow shields
 7,Master-at-arms,2,red,red,false,village,1 gold per red shield,2 points per gold up to a maximum of 4

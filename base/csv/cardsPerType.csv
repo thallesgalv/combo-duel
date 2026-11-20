@@ -24,9 +24,8 @@ machine,Barrel Dragon,effect
 machine,Metalzoa,effect
 machine,Slot Machine,normal
 machine,Pendulum Machine,normal
-machine,X-Head Cannon,normal
-machine,Y-Dragon Head,effect
-machine,Z-Metal Tank,normal
+machine,XY-Dragon Cannon,fusion
+machine,Drillago,effect
 machine,Launcher Spider,normal
 machine,Blast Sphere,effect
 machine,Labyrinth Tank,normal

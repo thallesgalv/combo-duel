@@ -5,11 +5,11 @@ import type { Card } from "../types/cardType";
 // Marcações nos textos: **negrito**, *(nota)* e [red] [orange] [blue] [purple] [green] [yellow] (escudo → selo do tipo).
 export const cardList: Card[] = [
   {
-    // Lookout · machine
+    // Lookout · dragon
     id: 1,
-    name: "Slot Machine",
-    art: "slot_machine__artwork__by_nhociory_dg31e4y",
-    boxColor: "normal",
+    name: "The Winged Dragon of Ra",
+    art: "the_winged_dragon_of_ra_artwork__by_nhociory_dg330h7",
+    boxColor: "ra",
     originalName: "Lookout",
     location: "castle",
     cost: 6,
@@ -22,10 +22,10 @@ export const cardList: Card[] = [
     score: "4 pontos por tipo diferente nesta coluna",
   },
   {
-    // Knight · machine
+    // Knight · dragon
     id: 2,
-    name: "Pendulum Machine",
-    art: "pendulum_machine__artwork__by_nhociory_dg31f3g",
+    name: "Curse of Dragon",
+    art: "curse_of_dragon__artwork__by_nhociory_df59715",
     boxColor: "normal",
     originalName: "Knight",
     location: "castle",
@@ -39,11 +39,11 @@ export const cardList: Card[] = [
     score: "3 pontos por [blue] nesta linha ou coluna",
   },
   {
-    // General · machine
+    // General · dragon
     id: 3,
-    name: "Jinzo",
-    art: "jinzo__artwork__by_nhociory_df8xonu",
-    boxColor: "effect",
+    name: "Blue-Eyes White Dragon",
+    art: "blue_eyes_white_dragon__artwork__by_nhociory_dg3blf0",
+    boxColor: "normal",
     originalName: "General",
     location: "castle",
     cost: 7,
@@ -56,12 +56,12 @@ export const cardList: Card[] = [
     score: "6 pontos por trio de tipos iguais",
   },
   {
-    // Chaplain · machine
+    // Captain · dragon
     id: 4,
-    name: "Y-Dragon Head",
-    art: "y_dragon_head__artwork__by_nhociory_dfawiuk",
-    boxColor: "effect",
-    originalName: "Chaplain",
+    name: "Blue-Eyes Ultimate Dragon",
+    art: "blue_eyes_ultimate_dragon__artwork__by_nhociory_df9wf6n",
+    boxColor: "fusion",
+    originalName: "Captain",
     location: "castle",
     cost: 5,
     shields: ["red", "red"],
@@ -73,10 +73,10 @@ export const cardList: Card[] = [
     score: "8 pontos se a coluna direita",
   },
   {
-    // Officer · machine
+    // Officer · dragon
     id: 5,
-    name: "Barrel Dragon",
-    art: "barrel_dragon__artwork__by_nhociory_dg2cshr",
+    name: "Blue-Eyes Toon Dragon",
+    art: "blue_eyes_toon_dragon_artwork__by_nhociory_dg0vyti",
     boxColor: "effect",
     originalName: "Officer",
     location: "castle",
@@ -90,11 +90,11 @@ export const cardList: Card[] = [
     score: "4 pontos por par [blue] + [red]",
   },
   {
-    // Mercenary · machine + fiend
+    // Mercenary · dragon + fiend
     id: 6,
-    name: "Metalzoa",
-    art: "metalzoa_artwork__by_nhociory_dg2ctr3",
-    boxColor: "effect",
+    name: "Black Skull Dragon",
+    art: "black_skull_dragon__artwork__by_nhociory_dfa2i57",
+    boxColor: "fusion",
     originalName: "Mercenary",
     location: "village",
     cost: 6,
@@ -107,10 +107,10 @@ export const cardList: Card[] = [
     score: "7 pontos por trio [purple] + [red] + [yellow]",
   },
   {
-    // Master-at-arms · machine
+    // Master-at-arms · dragon
     id: 7,
-    name: "X-Head Cannon",
-    art: "x_head_cannon__artwork__by_nhociory_dfawj03",
+    name: "Baby Dragon",
+    art: "baby_dragon__artwork__by_nhociory_dg31i67",
     boxColor: "normal",
     originalName: "Master-at-arms",
     location: "village",
@@ -124,11 +124,11 @@ export const cardList: Card[] = [
     score: "2 pontos por **ouro** nesta **bolsa** *(máx. 4)*",
   },
   {
-    // Blacksmith · machine + beast
+    // Blacksmith · dragon + beast
     id: 8,
-    name: "Catapult Turtle",
-    art: "catapult_turtle_artwork__by_nhociory_dhct2ha",
-    boxColor: "effect",
+    name: "Slifer the Sky Dragon",
+    art: "slifer_the_sky_dragon_artwork__by_nhociory_dg3301s",
+    boxColor: "slifer",
     originalName: "Blacksmith",
     location: "village",
     cost: 5,
@@ -141,11 +141,11 @@ export const cardList: Card[] = [
     score: "2 pontos por carta com 2 ícones de tipo",
   },
   {
-    // Squire · machine
+    // Squire · dragon
     id: 9,
-    name: "Launcher Spider",
-    art: "launcher_spider__artwork__by_nhociory_dg2ctpt",
-    boxColor: "normal",
+    name: "Harpie's Pet Dragon",
+    art: "harpie_s_pet_dragon__artwork__by_nhociory_dg0s4b7",
+    boxColor: "effect",
     originalName: "Squire",
     location: "village",
     cost: 0,
@@ -158,11 +158,11 @@ export const cardList: Card[] = [
     score: "2 pontos por [orange] nesta linha ou coluna",
   },
   {
-    // Bombardier · machine
+    // Bombardier · dragon
     id: 10,
-    name: "Blast Sphere",
-    art: "blast_sphere_artwork__by_nhociory_dg31f37",
-    boxColor: "effect",
+    name: "Red-Eyes Black Dragon",
+    art: "red_eyes_black_dragon__artwork__by_nhociory_dfa12ej",
+    boxColor: "normal",
     originalName: "Bombardier",
     location: "village",
     cost: 2,
@@ -175,11 +175,11 @@ export const cardList: Card[] = [
     score: "3 pontos por [red] nesta coluna",
   },
   {
-    // Militiaman · machine
+    // Militiaman · dragon
     id: 11,
-    name: "Labyrinth Tank",
-    art: "labyrinth_tank__artwork__by_nhociory_dg2atic",
-    boxColor: "normal",
+    name: "Meteor Black Dragon",
+    art: "meteor_black_dragon__artwork__by_nhociory_dfa2i5d",
+    boxColor: "fusion",
     originalName: "Militiaman",
     location: "village",
     cost: 2,
@@ -192,11 +192,11 @@ export const cardList: Card[] = [
     score: "3 pontos por [red] nesta linha",
   },
   {
-    // Barbarian · machine
+    // Barbarian · dragon
     id: 12,
-    name: "Jigen Bakudan",
-    art: "jigen_bakudan_artwork__by_nhociory_dhzm72o",
-    boxColor: "effect",
+    name: "Thousand Dragon",
+    art: "thousand_dragon__artwork__by_nhociory_dg31i8d",
+    boxColor: "fusion",
     originalName: "Barbarian",
     location: "village",
     cost: 2,
@@ -209,10 +209,10 @@ export const cardList: Card[] = [
     score: "10 pontos se não houver [green]",
   },
   {
-    // Executioner · machine
+    // Executioner · dragon
     id: 13,
-    name: "Z-Metal Tank",
-    art: "z_metal_tank__artwork__by_nhociory_dfawiv7",
+    name: "Winged Dragon, Guardian of the Fortress #1",
+    art: "winged_dragon__guardian_of_the_fortress__1_artwork_by_nhociory_dhdf7ih",
     boxColor: "normal",
     originalName: "Executioner",
     location: "village",
@@ -464,10 +464,10 @@ export const cardList: Card[] = [
     score: "8 pontos se na linha superior",
   },
   {
-    // His Majesty · spellcaster + dragon
+    // His Majesty · spellcaster + machine
     id: 28,
-    name: "Lord of D.",
-    art: "lord_of_d_artwork__by_nhociory_df9wfav",
+    name: "Time Wizard",
+    art: "time_wizard__artwork__by_nhociory_dg31i9q",
     boxColor: "effect",
     originalName: "His Majesty",
     location: "castle",
@@ -617,10 +617,10 @@ export const cardList: Card[] = [
     score: "2 pontos por **ouro** nesta **bolsa** *(máx. 3)*",
   },
   {
-    // Royal Guard · spellcaster + machine
+    // Royal Guard · spellcaster + dragon
     id: 37,
-    name: "Time Wizard",
-    art: "time_wizard__artwork__by_nhociory_dg31i9q",
+    name: "Lord of D.",
+    art: "lord_of_d_artwork__by_nhociory_df9wfav",
     boxColor: "effect",
     originalName: "Royal Guard",
     location: "castle",
@@ -651,10 +651,10 @@ export const cardList: Card[] = [
     score: "3 pontos por [yellow] nesta coluna",
   },
   {
-    // Nun · dragon
+    // Nun · machine
     id: 39,
-    name: "Curse of Dragon",
-    art: "curse_of_dragon__artwork__by_nhociory_df59715",
+    name: "Launcher Spider",
+    art: "launcher_spider__artwork__by_nhociory_dg2ctpt",
     boxColor: "normal",
     originalName: "Nun",
     location: "castle",
@@ -668,11 +668,11 @@ export const cardList: Card[] = [
     score: "3 pontos por [purple] nesta coluna",
   },
   {
-    // Devout · dragon
+    // Devout · machine
     id: 40,
-    name: "Red-Eyes Black Dragon",
-    art: "red_eyes_black_dragon__artwork__by_nhociory_dfa12ej",
-    boxColor: "normal",
+    name: "Blast Sphere",
+    art: "blast_sphere_artwork__by_nhociory_dg31f37",
+    boxColor: "effect",
     originalName: "Devout",
     location: "castle",
     cost: 4,
@@ -685,11 +685,11 @@ export const cardList: Card[] = [
     score: "10 pontos se não houver [orange]",
   },
   {
-    // His Holiness · dragon
+    // His Holiness · machine
     id: 41,
-    name: "Blue-Eyes White Dragon",
-    art: "blue_eyes_white_dragon__artwork__by_nhociory_dg3blf0",
-    boxColor: "normal",
+    name: "Jinzo",
+    art: "jinzo__artwork__by_nhociory_df8xonu",
+    boxColor: "effect",
     originalName: "His Holiness",
     location: "castle",
     cost: 7,
@@ -702,11 +702,11 @@ export const cardList: Card[] = [
     score: "6 pontos por tipo ausente",
   },
   {
-    // Cardinal · dragon
+    // Cardinal · machine
     id: 42,
-    name: "Meteor Black Dragon",
-    art: "meteor_black_dragon__artwork__by_nhociory_dfa2i5d",
-    boxColor: "fusion",
+    name: "Labyrinth Tank",
+    art: "labyrinth_tank__artwork__by_nhociory_dg2atic",
+    boxColor: "normal",
     originalName: "Cardinal",
     location: "castle",
     cost: 4,
@@ -719,7 +719,7 @@ export const cardList: Card[] = [
     score: "3 pontos por [purple] nesta linha",
   },
   {
-    // Templar · dragon + machine
+    // Templar · machine + dragon
     id: 43,
     name: "Red-Eyes Black Metal Dragon",
     art: "red_eyes_black_metal_dragon_artwork__by_nhociory_dfa12fg",
@@ -736,11 +736,11 @@ export const cardList: Card[] = [
     score: "1 ponto por **chave**",
   },
   {
-    // Pilgrim · dragon
+    // Pilgrim · machine
     id: 44,
-    name: "The Winged Dragon of Ra",
-    art: "the_winged_dragon_of_ra_artwork__by_nhociory_dg330h7",
-    boxColor: "ra",
+    name: "Slot Machine",
+    art: "slot_machine__artwork__by_nhociory_dg31e4y",
+    boxColor: "normal",
     originalName: "Pilgrim",
     location: "castle",
     cost: 6,
@@ -753,10 +753,10 @@ export const cardList: Card[] = [
     score: "4 pontos por tipo diferente nesta linha",
   },
   {
-    // Chaplain · dragon
+    // Chaplain · machine
     id: 45,
-    name: "Baby Dragon",
-    art: "baby_dragon__artwork__by_nhociory_dg31i67",
+    name: "Pendulum Machine",
+    art: "pendulum_machine__artwork__by_nhociory_dg31f3g",
     boxColor: "normal",
     originalName: "Chaplain",
     location: "castle",
@@ -770,11 +770,11 @@ export const cardList: Card[] = [
     score: "2 pontos por **Vilarejo**",
   },
   {
-    // Gravedigger · dragon + warrior
+    // Gravedigger · machine + warrior
     id: 46,
-    name: "Gaia the Dragon Champion",
-    art: "gaia_the_dragon_champion_artwork__by_nhociory_df5971t",
-    boxColor: "fusion",
+    name: "Valkyrion the Magna Warrior",
+    art: "valkyrion_the_magna_warrior_artwork__by_nhociory_dfb47c2",
+    boxColor: "effect",
     originalName: "Gravedigger",
     location: "castle",
     cost: 4,
@@ -787,11 +787,11 @@ export const cardList: Card[] = [
     score: "2 pontos por **ouro** nesta **bolsa** *(máx. 8)*",
   },
   {
-    // Scribe · dragon
+    // Scribe · machine
     id: 47,
-    name: "Thousand Dragon",
-    art: "thousand_dragon__artwork__by_nhociory_dg31i8d",
-    boxColor: "fusion",
+    name: "Jigen Bakudan",
+    art: "jigen_bakudan_artwork__by_nhociory_dhzm72o",
+    boxColor: "effect",
     originalName: "Scribe",
     location: "castle",
     cost: 4,
@@ -804,11 +804,11 @@ export const cardList: Card[] = [
     score: "3 pontos por [green] nesta linha ou coluna",
   },
   {
-    // Mother Superior · dragon
+    // Mother Superior · machine
     id: 48,
-    name: "Blue-Eyes Ultimate Dragon",
-    art: "blue_eyes_ultimate_dragon__artwork__by_nhociory_df9wf6n",
-    boxColor: "fusion",
+    name: "Barrel Dragon",
+    art: "barrel_dragon__artwork__by_nhociory_dg2cshr",
+    boxColor: "effect",
     originalName: "Mother Superior",
     location: "castle",
     cost: 5,
@@ -821,11 +821,11 @@ export const cardList: Card[] = [
     score: "5 pontos se na linha superior",
   },
   {
-    // Monk · dragon + fiend · score corrigido: o listium diz "same row", a imagem da carta mostra linha e coluna
+    // Monk · machine + fiend · score corrigido: o listium diz "same row", a imagem da carta mostra linha e coluna
     id: 49,
-    name: "Black Skull Dragon",
-    art: "black_skull_dragon__artwork__by_nhociory_dfa2i57",
-    boxColor: "fusion",
+    name: "Metalzoa",
+    art: "metalzoa_artwork__by_nhociory_dg2ctr3",
+    boxColor: "effect",
     originalName: "Monk",
     location: "village",
     cost: 4,
@@ -838,11 +838,11 @@ export const cardList: Card[] = [
     score: "2 pontos por [yellow] nesta linha ou coluna",
   },
   {
-    // Sculptor · dragon + beast
+    // Sculptor · machine + beast
     id: 50,
-    name: "Slifer the Sky Dragon",
-    art: "slifer_the_sky_dragon_artwork__by_nhociory_dg3301s",
-    boxColor: "slifer",
+    name: "Catapult Turtle",
+    art: "catapult_turtle_artwork__by_nhociory_dhct2ha",
+    boxColor: "effect",
     originalName: "Sculptor",
     location: "village",
     cost: 3,
@@ -855,11 +855,11 @@ export const cardList: Card[] = [
     score: "2 pontos por **ouro** nesta **bolsa** *(máx. 7)*",
   },
   {
-    // Miraculously cured! · dragon
+    // Miraculously cured! · machine
     id: 51,
-    name: "Harpie's Pet Dragon",
-    art: "harpie_s_pet_dragon__artwork__by_nhociory_dg0s4b7",
-    boxColor: "effect",
+    name: "XY-Dragon Cannon",
+    art: "xy_dragon_cannon_artwork__by_nhociory_dfawj0h",
+    boxColor: "fusion",
     originalName: "Miraculously cured!",
     location: "village",
     cost: 2,
@@ -872,11 +872,11 @@ export const cardList: Card[] = [
     score: "2 pontos por **ouro** nesta **bolsa** *(máx. 4)*",
   },
   {
-    // Vicar · dragon
+    // Vicar · machine
     id: 52,
-    name: "Winged Dragon, Guardian of the Fortress #1",
-    art: "winged_dragon__guardian_of_the_fortress__1_artwork_by_nhociory_dhdf7ih",
-    boxColor: "normal",
+    name: "Drillago",
+    art: "drillago_artwork_yu_gi_oh_4k__by_drcael_dmaktmv",
+    boxColor: "effect",
     originalName: "Vicar",
     location: "village",
     cost: 0,
@@ -1042,11 +1042,11 @@ export const cardList: Card[] = [
     score: "2 pontos por tipo diferente nesta coluna",
   },
   {
-    // Spy · warrior + machine
+    // Spy · warrior + dragon
     id: 62,
-    name: "Valkyrion the Magna Warrior",
-    art: "valkyrion_the_magna_warrior_artwork__by_nhociory_dfb47c2",
-    boxColor: "effect",
+    name: "Gaia the Dragon Champion",
+    art: "gaia_the_dragon_champion_artwork__by_nhociory_df5971t",
+    boxColor: "fusion",
     originalName: "Spy",
     location: "village",
     cost: 4,

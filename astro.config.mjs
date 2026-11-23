@@ -9,6 +9,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Combo Duel",
+      // Logo no lugar do título (assets/icons/logo.png: logo-combo-duel.png sem o fundo branco, recortado)
+      logo: { src: "./assets/icons/logo.png", replacesTitle: true },
       defaultLocale: "root",
       locales: { root: { label: "Português", lang: "pt-BR" } },
       sidebar: [

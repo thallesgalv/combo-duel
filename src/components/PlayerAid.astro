@@ -2,6 +2,7 @@
 // Player aid: carta de resumo das regras, no tamanho das cartas, frente e verso.
 //   frente = Preparação + Fim de jogo   verso = Turno
 // Os textos usam a mesma marcação das cartas (richText): **estrela**, **ficha do milênio**, **enigma**, …
+import logo from "../../assets/icons/logo.png";
 import { cardSizeVars } from "../lib/cards";
 import { richText } from "../lib/richText";
 import "../styles/card.css";
@@ -87,7 +88,7 @@ const numbered = (steps: Section["steps"]) => {
 
 <article class={`aid aid-${side}`} style={cardSizeVars(bleed)}>
   <div class="aid-face">
-    <header class="aid-title">Combo Duel</header>
+    <header class="aid-title"><img src={logo.src} alt="Combo Duel" /></header>
     <div class="aid-panel">
       {
         sections[side].map((section) => (
@@ -136,20 +137,17 @@ const numbered = (steps: Section["steps"]) => {
     padding: 24px 22px 22px;
   }
 
-  /* Faixa do título, na moldura das caixas */
+  /* Logo no topo, direto sobre o fundo preto */
   .aid-title {
-    padding: 12px 0 4px;
-    border-style: solid;
-    border-width: 16px;
-    border-image: url("../../assets/frame/box-normal.png") 9 fill / 16px stretch;
-    font-family: "Matrix Small Caps", serif;
-    font-size: 58px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 4px;
-    text-align: center;
-    text-transform: uppercase;
-    color: #000;
+    display: flex;
+    justify-content: center;
+    padding: 4px 0 0;
+  }
+
+  .aid-title img {
+    display: block;
+    width: 66%;
+    height: auto;
   }
 
   /* Painel amarelo de monstro normal, com as caixas dentro */
@@ -226,12 +224,12 @@ const numbered = (steps: Section["steps"]) => {
 
   /* Verso: só o turno, então letra maior */
   .aid-verso p {
-    --rt-icon: 52px;
-    font-size: 41px;
+    --rt-icon: 50px;
+    font-size: 39px;
   }
 
   .aid-verso ol {
-    gap: 22px;
+    gap: 16px;
   }
 
   .aid-sub {

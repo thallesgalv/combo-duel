@@ -1,0 +1,25 @@
+---
+// Página crua (sem Starlight) com um lado do player aid no tamanho físico. Usada pelo CLI de render.
+import PlayerAid, { type AidSide } from "../../../components/PlayerAid.astro";
+
+export const getStaticPaths = () => (["frente", "verso"] as const).map((side) => ({ params: { side } }));
+
+const side = Astro.params.side as AidSide;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Player aid — {side}</title>
+    <style is:global>
+      body {
+        margin: 0;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <PlayerAid side={side} bleed />
+  </body>
+</html>

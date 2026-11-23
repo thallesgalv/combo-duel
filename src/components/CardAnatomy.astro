@@ -1,0 +1,64 @@
+---
+// Anatomia da carta nas regras: uma carta real (Catapult Turtle: 2 tipos, enigma e manopla) com marcadores numerados
+import Card from "./Card.astro";
+import { getCards } from "../lib/cards";
+
+const card = getCards().find((c) => c.name === "Catapult Turtle")!;
+
+// Centro de cada marcador em pixels da carta (744×1039, ver card.css)
+const markers = [
+  { n: 1, x: 460, y: 606, label: "Custo" },
+  { n: 2, x: 548, y: 163, label: "Tipos" },
+  { n: 3, x: 172, y: 596, label: "Enigma do milênio" },
+  { n: 4, x: 36, y: 782, label: "Efeito" },
+  { n: 5, x: 36, y: 941, label: "Pontuação" },
+];
+---
+
+<figure class="anatomy not-content">
+  <div class="anatomy-card">
+    <Card card={card} />
+    {
+      markers.map((m) => (
+        <span class="anatomy-marker" style={`left: ${m.x}px; top: ${m.y}px`} title={m.label}>
+          {m.n}
+        </span>
+      ))
+    }
+  </div>
+</figure>
+
+<style>
+  .anatomy {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* A carta é desenhada em pixels de impressão; o zoom reduz tudo junto, marcadores inclusos */
+  .anatomy-card {
+    position: relative;
+    zoom: 0.42;
+    border-radius: 28px;
+    overflow: visible;
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);
+  }
+
+  .anatomy-marker {
+    position: absolute;
+    z-index: 5;
+    width: 84px;
+    height: 84px;
+    margin: -42px 0 0 -42px;
+    display: grid;
+    place-items: center;
+    border: 6px solid #e9c25a;
+    border-radius: 50%;
+    background: #b8322a;
+    color: #fff;
+    font: 900 48px/1 "Arial Black", sans-serif;
+    box-shadow:
+      0 0 0 4px #5a3d0a,
+      0 8px 16px rgb(0 0 0 / 0.6);
+  }
+</style>

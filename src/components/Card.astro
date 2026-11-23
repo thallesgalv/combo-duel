@@ -1,5 +1,6 @@
 ---
 import star from "../../assets/frame/star.png";
+import puzzle from "../../assets/icons/millenium-puzzle.png";
 import { shieldInfo } from "../lib/monsterTypes";
 import { cardSizeVars, type CardView } from "../lib/cards";
 import { richText } from "../lib/richText";
@@ -15,8 +16,6 @@ interface Props {
 // e no painel de monstro normal as caixas de efeito e pontuação empilhadas.
 const { card, bleed = false } = Astro.props;
 const types = card.shields.map(shieldInfo);
-// Mensageiro: Baralho Dourado (castle) ▼ preto, Baralho Preto (village) ▲ dourado
-const castle = card.location === "castle";
 // Caixas de texto; com **OU** ou **E** a caixa se divide em duas partes separadas por uma
 // diagonal, com a conjunção num selo no meio
 const capitalize = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
@@ -57,15 +56,12 @@ const boxes = [
 
     {
       card.moveMessenger && (
-        <svg
-          class:list={["card-messenger", castle ? "card-messenger-castle" : "card-messenger-village"]}
-          viewBox="0 0 100 100"
-          role="img"
-          aria-label="Mova o mensageiro"
-        >
-          <title>Mova o mensageiro</title>
-          <polygon points={castle ? "6,12 94,12 50,92" : "50,8 94,88 6,88"} />
-        </svg>
+        <img
+          class="card-messenger"
+          src={puzzle.src}
+          alt="Mova o enigma do milênio"
+          title="Mova o enigma do milênio"
+        />
       )
     }
 

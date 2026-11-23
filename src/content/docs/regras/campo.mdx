@@ -1,0 +1,32 @@
+---
+title: Campo
+description: Posicionamento, descontos, cartas viradas e manoplas.
+sidebar:
+  order: 4
+---
+
+import Icon from "../../../components/Icon.astro";
+
+## Posicionamento
+
+- A primeira carta vai em qualquer lugar.
+- As seguintes precisam ficar **ortogonalmente adjacentes** a pelo menos uma carta do seu campo.
+- O campo precisa terminar como uma grade **3×3**: nunca coloque uma quarta carta numa linha ou coluna.
+- Como a grade se forma aos poucos, a linha/coluna de uma carta só fica definida quando as vizinhas chegam.
+
+## Descontos
+
+- Cartas de **Desconto** reduzem o custo dos próximos recrutamentos (do Baralho Dourado <Icon name="dourado" />, do Baralho Preto <Icon name="preto" /> ou de todos).
+- Descontos se somam. Uma carta não custa menos que 0 e o que sobra do desconto não volta como estrela.
+- O desconto de uma carta não vale para o recrutamento dela mesma.
+
+## Cartas viradas para baixo
+
+- Não têm custo, efeito, tipo nem pontuação (valem 0).
+- Ao colocá-la, ganhe **6 estrelas** <Icon name="estrela" /> e **2 fichas do milênio** <Icon name="ficha" />.
+- Não movem o enigma do milênio.
+
+## Manoplas
+
+- Cartas com **manopla** <Icon name="manopla" /> guardam estrelas no fim do jogo, até o máximo indicado no texto de pontuação.
+- Estrelas fora de manoplas não valem pontos (mas desempatam).

@@ -1,0 +1,43 @@
+---
+title: Turno
+description: O que fazer na sua vez.
+sidebar:
+  order: 3
+---
+
+import Icon from "../../../components/Icon.astro";
+
+Na sua vez, siga estes passos em ordem.
+
+## 1. Usar uma ficha do milênio (opcional)
+
+Você **pode** gastar **1 ficha do milênio** <Icon name="ficha" /> para fazer **uma** destas ações:
+
+- Mover o enigma do milênio para a outra fileira.
+- Descartar a fileira onde está o enigma e revelar 3 cartas novas do mesmo baralho.
+
+## 2. Recrutar um monstro (obrigatório)
+
+Você **deve** recrutar uma carta da fileira onde está o enigma do milênio, pagando o **custo**: as estrelas <Icon name="estrela" /> na base da arte. Descontos podem baixar esse custo, mas nunca abaixo de 0.
+
+Se não puder pagar nenhuma, você **deve** pegar **qualquer** carta revelada (de qualquer fileira) e colocá-la **virada para baixo**. Ela perde tudo o que está escrito nela, mas você ganha **6 estrelas** <Icon name="estrela" /> e **2 fichas do milênio** <Icon name="ficha" />.
+
+## 3. Colocar no campo (obrigatório)
+
+Virada para cima ou para baixo, a carta entra no seu campo **ortogonalmente adjacente** a uma carta que já está lá, sem passar dos limites da grade **3×3** (veja [Campo](../campo/)).
+
+## 4. Ativar o efeito
+
+Depois de colocada, resolva o **efeito** da carta. Ele pode afetar você, todos os oponentes ou um vizinho à sua escolha (em duelo, oponente e vizinho são sempre o outro jogador).
+
+Se a carta tiver o selo do **enigma do milênio** <Icon name="enigma" />, mova o enigma do milênio para a outra fileira.
+
+Carta virada para baixo não tem efeito e não move o enigma.
+
+## 5. Repor
+
+Complete com 3 cartas toda fileira que tiver menos de 3.
+
+:::note[Baralho vazio]
+O descarte fica numa pilha aberta ao lado do baralho. Se o baralho acabar, embaralhe o descarte dele para formar um novo. Se nem assim der para completar 3 cartas, retire do jogo aquela fileira: o enigma do milênio fica na outra e não se move mais.
+:::

@@ -1,0 +1,33 @@
+---
+// Ícone do jogo dentro do texto das regras (mesmos ícones das cartas, via richText)
+//   <Icon name="estrela" />  <Icon name="ficha" />  <Icon name="manopla" />
+//   <Icon name="dourado" />  <Icon name="preto" />  <Icon tipo="red" />  <Icon pontos={6} />  <Icon name="enigma" />
+import { richText } from "../lib/richText";
+import "../styles/card.css";
+
+interface Props {
+  name?: "estrela" | "ficha" | "manopla" | "dourado" | "preto" | "enigma";
+  tipo?: string;
+  pontos?: number;
+}
+
+const tokens = {
+  estrela: "**estrela**",
+  ficha: "**ficha do milênio**",
+  manopla: "**manopla**",
+  enigma: "**enigma**",
+  dourado: "**Castelo**",
+  preto: "**Vilarejo**",
+};
+const { name, tipo, pontos } = Astro.props;
+const token = tipo ? `[${tipo}]` : pontos !== undefined ? `${pontos} pontos` : tokens[name!];
+---
+
+<span class="rules-icon not-content" set:html={richText(token)} />
+
+<style>
+  .rules-icon {
+    --rt-icon: 1.5em;
+    white-space: nowrap;
+  }
+</style>

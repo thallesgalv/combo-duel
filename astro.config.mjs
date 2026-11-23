@@ -14,6 +14,7 @@ export default defineConfig({
       sidebar: [
         { label: "Regras", items: [{ autogenerate: { directory: "regras" } }] },
         { label: "Cartas", link: "/" },
+        { label: "Contagem de pontos", link: "/pontuacao/" },
       ],
     }),
   ],

@@ -1,0 +1,263 @@
+---
+// Player aid: carta de resumo das regras, no tamanho das cartas, frente e verso.
+//   frente = Preparação + Fim de jogo   verso = Turno
+// Os textos usam a mesma marcação das cartas (richText): **estrela**, **ficha do milênio**, **enigma**, …
+import { cardSizeVars } from "../lib/cards";
+import { richText } from "../lib/richText";
+import "../styles/card.css";
+
+export type AidSide = "frente" | "verso";
+
+interface Props {
+  side: AidSide;
+  bleed?: boolean;
+}
+
+const { side, bleed = false } = Astro.props;
+
+// "15 **estrela**" sem virar 15 ícones: o espaço inseparável impede a repetição do richText
+const qty = (n: number, token: string) => `${n} **${token}**`;
+
+type Section = { title: string; steps: { name?: string; text: string }[]; note?: string };
+
+const sections: Record<AidSide, Section[]> = {
+  frente: [
+    {
+      title: "Preparação",
+      steps: [
+        { text: `Revele 3 cartas do **Castelo** e 3 do **Vilarejo**, em ${qty(2, "fileira")}.` },
+        { text: "Coloque o **enigma** na fileira do **Vilarejo**." },
+        { text: `Cada jogador recebe ${qty(15, "estrela")} e ${qty(2, "ficha do milênio")}.` },
+      ],
+    },
+    {
+      title: "Fim de jogo",
+      steps: [
+        { text: "Acaba quando o campo 3×3 de todos estiver cheio." },
+        { text: "Guarde as **estrelas** que sobraram nas **manoplas**, até o máximo de cada uma." },
+        { text: "Some a pontuação das cartas viradas para cima." },
+        { text: "Cada **ficha do milênio** vale 1 ponto." },
+      ],
+      note: "Empate: vence quem tiver mais **estrelas** fora das **manoplas**",
+    },
+  ],
+  verso: [
+    {
+      title: "Turno",
+      steps: [
+        {
+          name: "Ficha (opcional)",
+          text: `Gaste ${qty(1, "ficha do milênio")}: mova o **enigma** para a outra fileira **ou** troque todas as cartas da fileira dele.`,
+        },
+        {
+          name: "Recrutar",
+          text: "Pague o custo de 1 carta da fileira do **enigma**.",
+        },
+        {
+          name: "Sem estrelas?",
+          text: `Pegue qualquer carta virada para baixo e ganhe ${qty(6, "estrela")} e ${qty(2, "ficha do milênio")}.`,
+        },
+        {
+          name: "Colocar",
+          text: "Ao lado de uma carta do seu campo, dentro do 3×3.",
+        },
+        {
+          name: "Efeito",
+          text: "Resolva o efeito. Tem o **enigma**? Ele vai para a outra fileira.",
+        },
+        {
+          name: "Repor",
+          text: "Complete as fileiras com 3 cartas.",
+        },
+      ],
+    },
+  ],
+};
+
+// Número e ícone sempre na mesma linha (a quebra entre texto e imagem ignora o espaço inseparável)
+const rich = (text: string) =>
+  richText(text).replace(/(\d+)\u00A0(<img[^>]*>)/g, '<span class="aid-qty">$1 $2</span>');
+
+// "Sem estrelas?" é um caso do passo Recrutar: fica sem número
+const numbered = (steps: Section["steps"]) => {
+  let n = 0;
+  return steps.map((step) => ({ ...step, n: step.name === "Sem estrelas?" ? undefined : ++n }));
+};
+---
+
+<article class={`aid aid-${side}`} style={cardSizeVars(bleed)}>
+  <div class="aid-face">
+    <header class="aid-title">Combo Duel</header>
+    <div class="aid-panel">
+      {
+        sections[side].map((section) => (
+          <section class="aid-box">
+            <span class="card-label">{section.title}</span>
+            <ol>
+              {numbered(section.steps).map((step) => (
+                <li class:list={{ "aid-sub": step.n === undefined }}>
+                  <span class="aid-n">{step.n ?? "↳"}</span>
+                  <p>
+                    {step.name && <strong class="aid-name">{step.name}</strong>}
+                    <span set:html={rich(step.text)} />
+                  </p>
+                </li>
+              ))}
+            </ol>
+            {section.note && <p class="aid-note" set:html={rich(section.note)} />}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .aid {
+    box-sizing: content-box;
+    width: var(--card-w);
+    height: var(--card-h);
+    padding: var(--card-bleed);
+    background: #000;
+    color: #2a1a06;
+  }
+
+  .aid *,
+  .aid *::before,
+  .aid *::after {
+    box-sizing: border-box;
+  }
+
+  .aid-face {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 22px 22px;
+  }
+
+  /* Faixa do título, na moldura das caixas */
+  .aid-title {
+    padding: 12px 0 4px;
+    border-style: solid;
+    border-width: 16px;
+    border-image: url("../../assets/frame/box-normal.png") 9 fill / 16px stretch;
+    font-family: "Matrix Small Caps", serif;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 4px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  /* Painel amarelo de monstro normal, com as caixas dentro */
+  .aid-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    padding: 34px 16px 18px;
+    border-style: solid;
+    border-width: 15px;
+    border-image: url("../../assets/frame/panel-village.png") 8 fill / 15px stretch;
+  }
+
+  .aid-box {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 26px 18px 10px;
+    border-style: solid;
+    border-width: 16px;
+    border-image: url("../../assets/frame/box-normal.png") 9 fill / 16px stretch;
+  }
+
+  .aid-box :global(.card-label) {
+    font-size: 30px;
+    padding: 3px 22px 2px;
+  }
+
+  .aid ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .aid li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .aid p {
+    --rt-icon: 46px;
+    margin: 0;
+    font-family: "Matrix Small Caps", serif;
+    font-size: 36px;
+    line-height: 1.08;
+  }
+
+  /* Número do passo: selo vermelho com borda dourada, como os marcadores da anatomia */
+  .aid-n {
+    flex: none;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 3px solid #e9c25a;
+    border-radius: 50%;
+    background: #b8322a;
+    color: #fff;
+    font: 900 22px/1 "Arial Black", sans-serif;
+    box-shadow: 0 0 0 2px #5a3d0a;
+  }
+
+  .aid :global(.aid-qty) {
+    white-space: nowrap;
+  }
+
+  /* Verso: só o turno, então letra maior */
+  .aid-verso p {
+    --rt-icon: 52px;
+    font-size: 41px;
+  }
+
+  .aid-verso ol {
+    gap: 22px;
+  }
+
+  .aid-sub {
+    margin-left: 56px;
+  }
+
+  .aid-sub .aid-n {
+    width: auto;
+    height: auto;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: #9a4a10;
+    font-size: 26px;
+  }
+
+  .aid-name {
+    margin-right: 8px;
+    color: #000;
+    text-transform: uppercase;
+  }
+
+  .aid-note {
+    margin-top: 4px !important;
+    padding-top: 10px;
+    border-top: 2px solid rgb(154 74 16 / 0.4);
+    font-style: italic;
+  }
+</style>

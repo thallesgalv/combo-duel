@@ -1,0 +1,40 @@
+---
+title: Visão geral
+description: Objetivo, componentes, anatomia da carta e tipos.
+sidebar:
+  order: 1
+---
+
+import Icon from "../../../components/Icon.astro";
+import CardAnatomy from "../../../components/CardAnatomy.astro";
+import TypeTable from "../../../components/TypeTable.astro";
+
+Combo Duel é uma skin Yu-Gi-Oh de **Castle Combo**.
+
+## Objetivo
+
+Ter mais **pontos** ao fim de **9 rodadas**.
+
+A cada rodada você recruta um monstro e o coloca no seu campo, uma grade **3×3**. Cada carta tem um **efeito**, que acontece quando ela entra no campo, e uma regra de **pontuação**, contada no fim do jogo.
+
+## Componentes
+
+- **78 cartas**: 39 do **Baralho Dourado** <Icon name="dourado" /> e 39 do **Baralho Preto** <Icon name="preto" />.
+- **1 enigma do milênio** <Icon name="enigma" />: indica de qual fileira se recruta.
+- **Estrelas** <Icon name="estrela" /> e **fichas do milênio** <Icon name="ficha" />: não são limitadas; se acabarem, use qualquer substituto.
+
+## Anatomia da carta
+
+<CardAnatomy />
+
+1. **Custo**: estrelas <Icon name="estrela" /> na base da arte. É quanto você paga para recrutar a carta (sem estrelas = custo 0).
+2. **Tipos**: 1 ou 2 por carta. São os escudos do jogo original (veja [Tipos](#tipos)).
+3. **Enigma do milênio** <Icon name="enigma" />: só em algumas cartas. Ao recrutar a carta, o enigma do milênio vai para a outra fileira.
+4. **Efeito**: resolve uma vez, quando a carta entra no campo.
+5. **Pontuação**: contada no fim do jogo. O número ao lado do starchip é quanto vale: <Icon pontos={6} /> = 6 pontos. Cartas com **manopla** <Icon name="manopla" /> guardam estrelas no fim do jogo, até o máximo indicado.
+
+## Tipos
+
+Os seis escudos de Castle Combo viram tipos de monstro de Yu-Gi-Oh.
+
+<TypeTable />

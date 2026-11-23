@@ -1,0 +1,24 @@
+---
+title: Fim de jogo
+description: Quando o jogo acaba e como contar os pontos.
+sidebar:
+  order: 5
+---
+
+import Icon from "../../../components/Icon.astro";
+
+O jogo acaba ao fim da **9ª rodada**, quando todos os jogadores têm o campo **3×3** completo.
+
+## Contagem
+
+1. **Manoplas** <Icon name="manopla" />: distribua as estrelas <Icon name="estrela" /> que sobraram nas cartas com manopla, até o limite de cada uma.
+2. **Cartas**: cada carta virada para cima marca a sua **pontuação**. Cartas viradas para baixo não marcam nada.
+3. **Fichas do milênio** <Icon name="ficha" />: cada uma que sobrou vale <Icon pontos={1} />.
+
+Estrelas fora de manoplas não valem pontos.
+
+## Vencedor
+
+Quem tiver mais pontos vence.
+
+Empate: vence quem tiver mais estrelas **fora das manoplas**. Se continuar empatado, a vitória é dividida.

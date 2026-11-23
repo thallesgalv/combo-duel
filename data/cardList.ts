@@ -18,7 +18,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per red shield",
     originalScore: "4 points per different shield type in the same column",
-    ability: "1 **chave** por [red]",
+    ability: "1 **ficha do milênio** por [red]",
     score: "4 pontos por tipo diferente nesta coluna",
   },
   {
@@ -35,7 +35,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per Castle card",
     originalScore: "3 points per blue shield in the same row or column",
-    ability: "1 **ouro** por **Castelo**",
+    ability: "1 **estrela** por **Castelo**",
     score: "3 pontos por [blue] nesta linha ou coluna",
   },
   {
@@ -52,7 +52,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per different shield",
     originalScore: "6 points per set of 3 matching shields",
-    ability: "1 **chave** por tipo diferente",
+    ability: "1 **ficha do milênio** por tipo diferente",
     score: "6 pontos por trio de tipos iguais",
   },
   {
@@ -86,7 +86,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per blue and red shield",
     originalScore: "4 points per blue+red shield pair",
-    ability: "1 **ouro** por [blue] **E** 1 **ouro** por [red]",
+    ability: "1 **estrela** por [blue] **E** 1 **estrela** por [red]",
     score: "4 pontos por par [blue] + [red]",
   },
   {
@@ -103,7 +103,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per different shield type",
     originalScore: "7 points per set of purple+red+yellow shields",
-    ability: "1 **ouro** por tipo diferente",
+    ability: "1 **estrela** por tipo diferente",
     score: "7 pontos por trio [purple] + [red] + [yellow]",
   },
   {
@@ -120,8 +120,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "1 gold per red shield",
     originalScore: "2 points per gold up to a maximum of 4",
-    ability: "1 **ouro** por [red]",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 4)*",
+    ability: "1 **estrela** por [red]",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 4)*",
   },
   {
     // Blacksmith · dragon + beast
@@ -137,7 +137,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per blue shield of one neighbor, or gain 2 keys",
     originalScore: "2 points per double-shield card",
-    ability: "1 **ouro** por [blue] de um vizinho **OU** ganhe 2 **chaves**",
+    ability: "1 **estrela** por [blue] de um vizinho **OU** ganhe 2 **fichas do milênio**",
     score: "2 pontos por carta com 2 ícones de tipo",
   },
   {
@@ -171,7 +171,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per orange shield of one neighbor, OR gain 2 keys",
     originalScore: "3 points per red shield in the same column",
-    ability: "1 **ouro** por [orange] de um vizinho **OU** ganhe 2 **chaves**",
+    ability: "1 **estrela** por [orange] de um vizinho **OU** ganhe 2 **fichas do milênio**",
     score: "3 pontos por [red] nesta coluna",
   },
   {
@@ -188,7 +188,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per yellow shield of one neighbor OR gain 2 keys",
     originalScore: "3 points per red shield in the same row",
-    ability: "1 **ouro** por [yellow] de um vizinho **OU** ganhe 2 **chaves**",
+    ability: "1 **estrela** por [yellow] de um vizinho **OU** ganhe 2 **fichas do milênio**",
     score: "3 pontos por [red] nesta linha",
   },
   {
@@ -205,7 +205,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per green shield of one neighbor OR gain 2 keys",
     originalScore: "10 points if green shields are missing",
-    ability: "1 **ouro** por [green] de um vizinho **OU** ganhe 2 **chaves**",
+    ability: "1 **estrela** por [green] de um vizinho **OU** ganhe 2 **fichas do milênio**",
     score: "10 pontos se não houver [green]",
   },
   {
@@ -222,11 +222,11 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Discard one Castle card from the board and gain the cost in gold",
     originalScore: "1 point per Castle card",
-    ability: "Descarte **Castelo** do seu campo e ganhe seu custo em **ouro**",
+    ability: "Descarte **Castelo** do seu campo e ganhe seu custo em **estrelas**",
     score: "1 ponto por **Castelo**",
   },
   {
-    // Guildmaster · beast · ability corrigida: o listium diz "its cost in gold", a imagem da carta mostra 1 chave por ouro do custo
+    // Guildmaster · beast · ability corrigida: o listium diz "its cost in gold", a imagem da carta mostra 1 ficha do milênio por estrela do custo
     id: 14,
     name: "Panther Warrior",
     art: "panther_warrior__artwork__by_nhociory_dg2q82r",
@@ -239,7 +239,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Discard one Village card and receive 1 key per gold in its cost",
     originalScore: "5 points if located in the bottom row",
-    ability: "Descarte **Vilarejo** do seu campo e ganhe 1 **chave** por **ouro** do custo dela",
+    ability: "Descarte **Vilarejo** do seu campo e ganhe 1 **ficha do milênio** por **estrela** do custo dela",
     score: "5 pontos se na linha inferior",
   },
   {
@@ -256,7 +256,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per purple and orange shield",
     originalScore: "4 points per purple+orange shield pair",
-    ability: "1 **ouro** por [purple] **E** 1 **ouro** por [orange]",
+    ability: "1 **estrela** por [purple] **E** 1 **estrela** por [orange]",
     score: "4 pontos por par [purple] + [orange]",
   },
   {
@@ -273,7 +273,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per card with a cost of 4 gold",
     originalScore: "3 points per card with a cost of 4 gold",
-    ability: "1 **ouro** por carta de custo 4",
+    ability: "1 **estrela** por carta de custo 4",
     score: "3 pontos por carta de custo 4",
   },
   {
@@ -290,8 +290,8 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "2 gold on each purse OR gain 3 keys",
     originalScore: "1 point per gold stored on purses",
-    ability: "2 **ouro** em cada carta com **bolsa** **OU** ganhe 3 **chaves**",
-    score: "1 ponto por **ouro** guardado nas **bolsas**",
+    ability: "2 **estrelas** em cada carta com **manopla** **OU** ganhe 3 **fichas do milênio**",
+    score: "1 ponto por **estrela** guardada nas **manoplas**",
   },
   {
     // Potter · beast
@@ -307,11 +307,11 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "2 gold on each purse",
     originalScore: "2 points per gold up to a maximum of 4 gold",
-    ability: "2 **ouro** em cada carta com **bolsa**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 4)*",
+    ability: "2 **estrelas** em cada carta com **manopla**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 4)*",
   },
   {
-    // Carpenter · beast · ability corrigida: o listium diz "1 gold", a imagem da carta mostra 1 chave
+    // Carpenter · beast · ability corrigida: o listium diz "1 gold", a imagem da carta mostra 1 ficha do milênio
     id: 19,
     name: "Beaver Warrior",
     art: "beaver_warrior__artwork__by_nhociory_dhc96pa",
@@ -324,7 +324,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per missing shield type",
     originalScore: "8 points if you have at least 1 face-down card",
-    ability: "1 **chave** por tipo ausente",
+    ability: "1 **ficha do milênio** por tipo ausente",
     score: "8 pontos se tiver 1+ carta virada para baixo",
   },
   {
@@ -341,8 +341,8 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per orange shield",
     originalScore: "1 point per key",
-    ability: "1 **chave** por [orange]",
-    score: "1 ponto por **chave**",
+    ability: "1 **ficha do milênio** por [orange]",
+    score: "1 ponto por **ficha do milênio**",
   },
   {
     // Stonemason · beast
@@ -392,7 +392,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "2 gold per orange shield",
     originalScore: "5 points if located in the middle row",
-    ability: "2 **ouro** por [orange]",
+    ability: "2 **estrelas** por [orange]",
     score: "5 pontos se na linha central",
   },
   {
@@ -409,7 +409,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per orange shield",
     originalScore: "3 points per orange shield in the same row",
-    ability: "1 **ouro** por [orange]",
+    ability: "1 **estrela** por [orange]",
     score: "3 pontos por [orange] nesta linha",
   },
   {
@@ -426,8 +426,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "Gain 2 gold on each purse AND opponents gain 2 gold",
     originalScore: "2 points per gold on this purse to a maximum of 6 gold",
-    ability: "2 **ouro** em cada carta com **bolsa** **E** oponentes ganham 2 **ouro**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 6)*",
+    ability: "2 **estrelas** em cada carta com **manopla** **E** oponentes ganham 2 **estrelas**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 6)*",
   },
   {
     // Chatelaine · spellcaster + beast
@@ -460,7 +460,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Gain 2 keys",
     originalScore: "8 points if located in the top row",
-    ability: "Ganhe 2 **chaves**",
+    ability: "Ganhe 2 **fichas do milênio**",
     score: "8 pontos se na linha superior",
   },
   {
@@ -477,7 +477,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Opponents gain 1 gold",
     originalScore: "4 points per blue shield in the same column",
-    ability: "Oponentes ganham **ouro**",
+    ability: "Oponentes ganham **estrelas**",
     score: "4 pontos por [blue] nesta coluna",
   },
   {
@@ -494,8 +494,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "2 gold added to each purse",
     originalScore: "2 points per gold up to a maximum of 5 gold",
-    ability: "2 **ouro** em cada carta com **bolsa**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 5)*",
+    ability: "2 **estrelas** em cada carta com **manopla**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 5)*",
   },
   {
     // Jester · spellcaster
@@ -511,7 +511,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "2 gold per blue shield",
     originalScore: "2 points per blue shield in the same row or column",
-    ability: "2 **ouro** por [blue]",
+    ability: "2 **estrelas** por [blue]",
     score: "2 pontos por [blue] nesta linha ou coluna",
   },
   {
@@ -528,7 +528,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per green shield",
     originalScore: "2 points per castle banner icon",
-    ability: "1 **chave** por [green]",
+    ability: "1 **ficha do milênio** por [green]",
     score: "2 pontos por **Castelo**",
   },
   {
@@ -562,7 +562,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per blue shield",
     originalScore: "4 points per blue shield in the same row",
-    ability: "1 **ouro** por [blue]",
+    ability: "1 **estrela** por [blue]",
     score: "4 pontos por [blue] nesta linha",
   },
   {
@@ -579,7 +579,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per blue shield",
     originalScore: "10 points per set of blue+green+orange shields",
-    ability: "1 **chave** por [blue]",
+    ability: "1 **ficha do milênio** por [blue]",
     score: "10 pontos por trio [blue] + [green] + [orange]",
   },
   {
@@ -613,8 +613,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "Gain gold on two purses until they are full",
     originalScore: "2 points per gold in the purse, up to a maximum of 3 gold",
-    ability: "Ganhe **ouro** em duas cartas com **bolsa** até ambas estarem cheias",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 3)*",
+    ability: "Ganhe **estrelas** em duas cartas com **manopla** até ambas estarem cheias",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 3)*",
   },
   {
     // Royal Guard · spellcaster + dragon
@@ -630,7 +630,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "All players gain 1 key",
     originalScore: "3 points per blue shield in the same column",
-    ability: "Todos os jogadores ganham 1 **chave**",
+    ability: "Todos os jogadores ganham 1 **ficha do milênio**",
     score: "3 pontos por [blue] nesta coluna",
   },
   {
@@ -647,7 +647,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per blue shield",
     originalScore: "3 points per yellow shield in the same column",
-    ability: "1 **chave** por [blue]",
+    ability: "1 **ficha do milênio** por [blue]",
     score: "3 pontos por [yellow] nesta coluna",
   },
   {
@@ -664,7 +664,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per Castle",
     originalScore: "3 points per purple shield in the same column",
-    ability: "1 **ouro** por **Castelo**",
+    ability: "1 **estrela** por **Castelo**",
     score: "3 pontos por [purple] nesta coluna",
   },
   {
@@ -681,7 +681,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per empty space",
     originalScore: "10 points if orange shields are missing",
-    ability: "1 **ouro** por espaço vazio",
+    ability: "1 **estrela** por espaço de carta desocupado em seu campo",
     score: "10 pontos se não houver [orange]",
   },
   {
@@ -698,7 +698,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Gain 3 keys and opponents gain 1 key",
     originalScore: "6 points per missing shield type",
-    ability: "Ganhe 3 **chaves** **E** oponentes ganham 1 **chave**",
+    ability: "Ganhe 3 **fichas do milênio** **E** oponentes ganham 1 **ficha do milênio**",
     score: "6 pontos por tipo ausente",
   },
   {
@@ -715,7 +715,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per Castle",
     originalScore: "3 points per purple shield in the same row",
-    ability: "1 **chave** por **Castelo**",
+    ability: "1 **ficha do milênio** por **Castelo**",
     score: "3 pontos por [purple] nesta linha",
   },
   {
@@ -732,8 +732,8 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per purple shield of one neighbor AND 1 key per red shield",
     originalScore: "1 point per key",
-    ability: "1 **ouro** por [purple] de um vizinho **E** 1 **chave** por [red]",
-    score: "1 ponto por **chave**",
+    ability: "1 **estrela** por [purple] de um vizinho **E** 1 **ficha do milênio** por [red]",
+    score: "1 ponto por **ficha do milênio**",
   },
   {
     // Pilgrim · machine
@@ -766,7 +766,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per single-shield card",
     originalScore: "2 points per Village card",
-    ability: "1 **ouro** por carta com 1 ícone de tipo",
+    ability: "1 **estrela** por carta com 1 ícone de tipo",
     score: "2 pontos por **Vilarejo**",
   },
   {
@@ -783,8 +783,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "Discard one Village card and receive its value in gold",
     originalScore: "2 points per gold stored in this purse, up to a maximum of 8 gold",
-    ability: "Descarte **Vilarejo** e ganhe seu custo em **ouro**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 8)*",
+    ability: "Descarte **Vilarejo** e ganhe seu custo em **estrelas**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 8)*",
   },
   {
     // Scribe · machine
@@ -800,7 +800,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per purple shield",
     originalScore: "3 points per green shield in the same row or column",
-    ability: "1 **ouro** por [purple]",
+    ability: "1 **estrela** por [purple]",
     score: "3 pontos por [green] nesta linha ou coluna",
   },
   {
@@ -817,7 +817,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "4 keys",
     originalScore: "5 points if located in the top row",
-    ability: "Ganhe 4 **chaves**",
+    ability: "Ganhe 4 **fichas do milênio**",
     score: "5 pontos se na linha superior",
   },
   {
@@ -834,7 +834,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per purple shield",
     originalScore: "2 points per yellow shield in the same row or column",
-    ability: "1 **chave** por [purple]",
+    ability: "1 **ficha do milênio** por [purple]",
     score: "2 pontos por [yellow] nesta linha ou coluna",
   },
   {
@@ -851,8 +851,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "1 key per purple shield",
     originalScore: "2 points per gold in this purse up to a maximum of 7 gold",
-    ability: "1 **chave** por [purple]",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 7)*",
+    ability: "1 **ficha do milênio** por [purple]",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 7)*",
   },
   {
     // Miraculously cured! · machine
@@ -868,8 +868,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "1 key per purse",
     originalScore: "2 points per gold in this purse to a maximum of 4 gold",
-    ability: "1 **chave** por **bolsa**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 4)*",
+    ability: "1 **ficha do milênio** por **manopla**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 4)*",
   },
   {
     // Vicar · machine
@@ -885,8 +885,8 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "1 gold per Village card",
     originalScore: "2 points per gold on this purse to a maximum of 5 gold",
-    ability: "1 **ouro** por **Vilarejo**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 5)*",
+    ability: "1 **estrela** por **Vilarejo**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 5)*",
   },
   {
     // Astronomer · warrior
@@ -936,7 +936,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per different shield",
     originalScore: "3 points per green shield in the same row",
-    ability: "1 **ouro** por tipo diferente",
+    ability: "1 **estrela** por tipo diferente",
     score: "3 pontos por [green] nesta linha",
   },
   {
@@ -970,7 +970,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per two-shield card",
     originalScore: "6 points if located in the left column",
-    ability: "1 **chave** por carta com 2 ícones de tipo",
+    ability: "1 **ficha do milênio** por carta com 2 ícones de tipo",
     score: "6 pontos se na coluna esquerda",
   },
   {
@@ -1004,7 +1004,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "Opponents gain 2 gold",
     originalScore: "5 points per card with a cost of 5 or more",
-    ability: "Oponentes ganham 2 **ouro**",
+    ability: "Oponentes ganham 2 **estrelas**",
     score: "5 pontos por carta de custo 5+",
   },
   {
@@ -1021,7 +1021,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "2 keys",
     originalScore: "3 points per pair of Castle and Village cards",
-    ability: "Ganhe 2 **chaves**",
+    ability: "Ganhe 2 **fichas do milênio**",
     score: "3 pontos por par **Castelo** + **Vilarejo**",
   },
   {
@@ -1038,7 +1038,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per Village card",
     originalScore: "2 points per different shield type in the same column",
-    ability: "1 **ouro** por **Vilarejo**",
+    ability: "1 **estrela** por **Vilarejo**",
     score: "2 pontos por tipo diferente nesta coluna",
   },
   {
@@ -1055,7 +1055,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per green shield AND 1 key per red shield of one neighbor",
     originalScore: "6 points if located in the middle column",
-    ability: "1 **ouro** por [green] **E** 1 **chave** por [red] de um vizinho",
+    ability: "1 **estrela** por [green] **E** 1 **ficha do milênio** por [red] de um vizinho",
     score: "6 pontos se na coluna central",
   },
   {
@@ -1072,7 +1072,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per green shield",
     originalScore: "1 point per Village card",
-    ability: "1 **ouro** por [green]",
+    ability: "1 **estrela** por [green]",
     score: "1 ponto por **Vilarejo**",
   },
   {
@@ -1089,7 +1089,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per green shield and 1 gold per yellow shield",
     originalScore: "4 points per green+yellow shield pair",
-    ability: "1 **ouro** por [green] **E** 1 **ouro** por [yellow]",
+    ability: "1 **estrela** por [green] **E** 1 **estrela** por [yellow]",
     score: "4 pontos por par [green] + [yellow]",
   },
   {
@@ -1123,7 +1123,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per Castle card of one neighbor",
     originalScore: "7 points per set of 3 village banner icons",
-    ability: "1 **chave** por **Castelo** de um vizinho",
+    ability: "1 **ficha do milênio** por **Castelo** de um vizinho",
     score: "7 pontos por trio de **Vilarejo**",
   },
   {
@@ -1140,7 +1140,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per full space",
     originalScore: "2 points per purple shield in the same row or column",
-    ability: "1 **ouro** por espaço ocupado",
+    ability: "1 **estrela** por carta em seu campo",
     score: "2 pontos por [purple] nesta linha ou coluna",
   },
   {
@@ -1157,7 +1157,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per empty space",
     originalScore: "3 points per yellow shield in the same row",
-    ability: "1 **ouro** por espaço vazio",
+    ability: "1 **estrela** por espaço de carta desocupado em seu campo",
     score: "3 pontos por [yellow] nesta linha",
   },
   {
@@ -1174,7 +1174,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per yellow shield",
     originalScore: "7 points if located in the bottom row",
-    ability: "1 **chave** por [yellow]",
+    ability: "1 **ficha do milênio** por [yellow]",
     score: "7 pontos se na linha inferior",
   },
   {
@@ -1191,7 +1191,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per full space",
     originalScore: "5 points if located in the right column",
-    ability: "1 **ouro** por espaço ocupado",
+    ability: "1 **estrela** por carta em seu campo",
     score: "5 pontos se na coluna direita",
   },
   {
@@ -1208,7 +1208,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per yellow shield AND 1 key per purple shield of one neighbor",
     originalScore: "9 points if purple shields are missing",
-    ability: "1 **ouro** por [yellow] **E** 1 **chave** por [purple] de um vizinho",
+    ability: "1 **estrela** por [yellow] **E** 1 **ficha do milênio** por [purple] de um vizinho",
     score: "9 pontos se não houver [purple]",
   },
   {
@@ -1226,7 +1226,7 @@ export const cardList: Card[] = [
     originalAbility: "Discount of 1 on Village cards",
     originalScore: "2 points per gold up to a maximum of 5 gold",
     ability: "**Desconto** de 1 em **Vilarejo**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 5)*",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 5)*",
   },
   {
     // Traveler · fiend
@@ -1242,7 +1242,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "3 gold per 0-cost card",
     originalScore: "2 points per 0-cost card",
-    ability: "3 **ouro** por carta de custo 0",
+    ability: "3 **estrelas** por carta de custo 0",
     score: "2 pontos por carta de custo 0",
   },
   {
@@ -1259,7 +1259,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per single-shield card",
     originalScore: "2 points per Castle card",
-    ability: "1 **chave** por carta com 1 ícone de tipo",
+    ability: "1 **ficha do milênio** por carta com 1 ícone de tipo",
     score: "2 pontos por **Castelo**",
   },
   {
@@ -1293,7 +1293,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 key per Village card",
     originalScore: "9 points if blue shields are missing",
-    ability: "1 **chave** por **Vilarejo**",
+    ability: "1 **ficha do milênio** por **Vilarejo**",
     score: "9 pontos se não houver [blue]",
   },
   {
@@ -1310,7 +1310,7 @@ export const cardList: Card[] = [
     purse: false,
     originalAbility: "1 gold per yellow shield and 1 key per village banner icon",
     originalScore: "3 points if located in the middle space of any edge",
-    ability: "1 **ouro** por [yellow] **E** 1 **chave** por **Vilarejo**",
+    ability: "1 **estrela** por [yellow] **E** 1 **ficha do milênio** por **Vilarejo**",
     score: "3 pontos se no meio de uma borda",
   },
   {
@@ -1327,7 +1327,7 @@ export const cardList: Card[] = [
     purse: true,
     originalAbility: "Gain 2 gold on each purse",
     originalScore: "2 points per gold on this purse up to a maximum of 9",
-    ability: "2 **ouro** em cada carta com **bolsa**",
-    score: "2 pontos por **ouro** nesta **bolsa** *(máx. 9)*",
+    ability: "2 **estrelas** em cada carta com **manopla**",
+    score: "2 pontos por **estrela** nesta **manopla** *(máx. 9)*",
   },
 ];

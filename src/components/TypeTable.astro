@@ -1,0 +1,34 @@
+---
+// Tabela escudo do Castle Combo → tipo de monstro, lida do CSV (vigentTypeColorShieldMapping.csv)
+import Icon from "./Icon.astro";
+import { shieldInfo, shieldTypes } from "../lib/monsterTypes";
+import type { Shield } from "../../types/cardType";
+
+const shieldNames: Record<Shield, string> = {
+  red: "Militar (vermelho)",
+  orange: "Artesanato (laranja)",
+  blue: "Nobreza (azul)",
+  purple: "Fé (roxo)",
+  green: "Erudição (verde)",
+  yellow: "Campesinato (amarelo)",
+};
+const rows = (Object.keys(shieldTypes) as Shield[]).map((shield) => ({ shield, ...shieldInfo(shield) }));
+---
+
+<table>
+  <thead>
+    <tr><th>Tipo</th><th>Castle Combo</th></tr>
+  </thead>
+  <tbody>
+    {
+      rows.map((r) => (
+        <tr>
+          <td>
+            <Icon tipo={r.shield} /> <strong>{r.label}</strong>
+          </td>
+          <td>{shieldNames[r.shield]}</td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

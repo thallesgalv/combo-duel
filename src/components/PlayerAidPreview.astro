@@ -1,0 +1,24 @@
+---
+// Frente e verso do player aid lado a lado, reduzidos, para o wiki
+import PlayerAid from "./PlayerAid.astro";
+---
+
+<div class="aid-preview not-content">
+  <PlayerAid side="frente" />
+  <PlayerAid side="verso" />
+</div>
+
+<style>
+  .aid-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .aid-preview > :global(.aid) {
+    zoom: 0.4;
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);
+  }
+</style>
